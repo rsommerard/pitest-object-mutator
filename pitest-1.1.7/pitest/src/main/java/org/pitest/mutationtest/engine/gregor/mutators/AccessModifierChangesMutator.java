@@ -15,12 +15,12 @@ import org.pitest.mutationtest.engine.gregor.ZeroOperandMutation;
 
 public enum AccessModifierChangesMutator implements MethodMutatorFactory {
 
-    ACCESS_MODIFIER_CHANGES;
+    ACCESS_MODIFIER_CHANGES_MUTATOR;
 
     @Override
     public MethodVisitor create(final MutationContext context,
         final MethodInfo methodInfo, final MethodVisitor methodVisitor) {
-        return new ClassMethodVisitor(this, methodInfo, context, methodVisitor);
+        return new AccessModifierMethodVisitor(this, methodInfo, context, methodVisitor);
     }
 
     @Override
@@ -37,9 +37,9 @@ public enum AccessModifierChangesMutator implements MethodMutatorFactory {
 /**
  * Changes access modifiers (private, public, protected)
  */
-class ClassMethodVisitor extends AbstractInsnMutator {
+class AccessModifierMethodVisitor extends AbstractInsnMutator {
     
-    ClassMethodVisitor(final MethodMutatorFactory factory,
+    AccessModifierMethodVisitor(final MethodMutatorFactory factory,
         final MethodInfo methodInfo, final MutationContext context,
         final MethodVisitor writer) {
         super(factory, methodInfo, context, writer);
