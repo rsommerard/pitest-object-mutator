@@ -15,12 +15,12 @@ import org.pitest.mutationtest.engine.gregor.ZeroOperandMutation;
 
 public enum AccessModifierChangesMutator implements MethodMutatorFactory {
 
-    ACCESS_MODIFIER_CHANGES;
+    ACCESS_MODIFIER_CHANGES_MUTATOR;
 
     @Override
     public MethodVisitor create(final MutationContext context,
         final MethodInfo methodInfo, final MethodVisitor methodVisitor) {
-        return new ClassMethodVisitor(this, methodInfo, context, methodVisitor);
+        return new AccessModifierMethodVisitor(this, methodInfo, context, methodVisitor);
     }
 
     @Override
@@ -37,14 +37,14 @@ public enum AccessModifierChangesMutator implements MethodMutatorFactory {
 /**
  * Changes access modifiers (private, public, protected)
  */
-class ClassMethodVisitor extends AbstractInsnMutator {
-    
-    ClassMethodVisitor(final MethodMutatorFactory factory,
+class AccessModifierMethodVisitor extends AbstractInsnMutator {
+
+    AccessModifierMethodVisitor(final MethodMutatorFactory factory,
         final MethodInfo methodInfo, final MutationContext context,
         final MethodVisitor writer) {
         super(factory, methodInfo, context, writer);
     }
-    
+
     private static final Map<Integer, ZeroOperandMutation> MUTATIONS = new HashMap<Integer, ZeroOperandMutation>();
 
     static {
@@ -55,7 +55,7 @@ class ClassMethodVisitor extends AbstractInsnMutator {
         MUTATIONS.put(Opcodes.ACC_PUBLIC, new InsnSubstitution(Opcodes.ACC_PRIVATE, "Replaced public access with private access"));
         MUTATIONS.put(Opcodes.ACC_PUBLIC, new InsnSubstitution(Opcodes.ACC_PROTECTED, "Replaced public access with protected access"));
     }
-    
+
     @Override
     protected Map<Integer, ZeroOperandMutation> getMutations() {
         return MUTATIONS;
