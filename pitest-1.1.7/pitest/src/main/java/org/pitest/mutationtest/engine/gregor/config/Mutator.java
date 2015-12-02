@@ -31,6 +31,7 @@ import org.pitest.functional.prelude.Prelude;
 import org.pitest.help.Help;
 import org.pitest.help.PitHelpError;
 import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
+import org.pitest.mutationtest.engine.gregor.mutators.AccessModifierChangesMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.ArgumentPropagationMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.ConditionalsBoundaryMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.ConstructorCallMutator;
@@ -75,6 +76,11 @@ public final class Mutator {
      * Default mutator that mutates binary arithmetic operations.
      */
     add("MATH", MathMutator.MATH_MUTATOR);
+    
+    /**
+     * Default mutator that mutates access modifiers.
+     */
+    add("ACCESS_MODIFIER_CHANGES", AccessModifierChangesMutator.ACCESS_MODIFIER_CHANGES_MUTATOR);
 
     /**
      * Default mutator that removes method calls to void methods.
