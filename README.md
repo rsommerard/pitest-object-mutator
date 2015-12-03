@@ -22,4 +22,5 @@ le dossier .m2 de l'utilisateur.
   ./run.sh
   ```
 
-3. Les résultats de pitest se trouvent dans le dossier: `<project_name>/target/pit-reports/`
+3. Les résultats de pitest se trouvent dans le dossier:
+    `<project_name>/target/pit-reports/`
