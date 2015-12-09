@@ -41,6 +41,7 @@ import org.pitest.mutationtest.engine.gregor.mutators.InvertNegsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.MathMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.NonVoidMethodCallMutator;
+import org.pitest.mutationtest.engine.gregor.mutators.OverridingMethodRemovalMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator;
 import org.pitest.mutationtest.engine.gregor.mutators.RemoveConditionalMutator.Choice;
 import org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator;
@@ -82,6 +83,11 @@ public final class Mutator {
      */
     add("ACCESS_MODIFIER_CHANGES", AccessModifierChangesMutator.ACCESS_MODIFIER_CHANGES_MUTATOR);
 
+    /**
+     * Default mutator that mutates access modifiers.
+     */
+    add("OVERRIDING_METHOD_REMOVAL", OverridingMethodRemovalMutator.OVERRIDING_METHOD_REMOVAL_MUTATOR);
+    
     /**
      * Default mutator that removes method calls to void methods.
      *

@@ -1,0 +1,3116 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10;display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+
+.pop span { border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+</style>
+
+</head>
+<body>
+
+
+<h1>LutherStepInterpolator.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Licensed to the Apache Software Foundation (ASF) under one or more</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * contributor license agreements.  See the NOTICE file distributed with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * this work for additional information regarding copyright ownership.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The ASF licenses this file to You under the Apache License, Version 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * (the &#34;License&#34;); you may not use this file except in compliance with</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the License.  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.apache.commons.math3.ode.nonstiff;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.ode.sampling.StepInterpolator;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.apache.commons.math3.util.FastMath;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class represents an interpolator over the last step during an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ODE integration for the 6th order Luther integrator.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;This interpolator computes dense output inside the last</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * step computed. The interpolation equation is consistent with the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * integration scheme.&#60;/p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see LutherIntegrator</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 3.3</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>class LutherStepInterpolator extends RungeKuttaStepInterpolator {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Serializable version identifier */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = 20140416L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Square root. */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_41'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    private static final double Q = FastMath.sqrt(21);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Simple constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This constructor builds an instance that is not usable yet, the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * org.apache.commons.math3.ode.sampling.AbstractStepInterpolator#reinitialize}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * method should be called before using the instance in order to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * initialize the internal arrays. This constructor is used only</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * in order to delay the initialization in some cases. The {@link</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * RungeKuttaIntegrator} class uses the prototyping design pattern</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * to create the step interpolators by cloning an uninitialized model</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * and later initializing the copy.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_54'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    public LutherStepInterpolator() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_55'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Copy constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param interpolator interpolator to copy from. The copy is a deep</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * copy: its arrays are separated from the original arrays of the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * instance</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public LutherStepInterpolator(final LutherStepInterpolator interpolator) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_63'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        super(interpolator);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_64'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected StepInterpolator doCopy() {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_69'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        return new LutherStepInterpolator(this);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** {@inheritDoc} */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void computeInterpolatedStateAndDerivatives(final double theta,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                                                          final double oneMinusThetaH) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // the coefficients below have been computed by solving the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // order conditions from a theorem from Butcher (1963), using</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // the method explained in Folkmar Bornemann paper &#34;Runge-Kutta</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Methods, Trees, and Maple&#34;, Center of Mathematical Sciences, Munich</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // University of Technology, February 9, 2001</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        //&#60;http://wwwzenger.informatik.tu-muenchen.de/selcuk/sjam012101.html&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // the method is implemented in the rkcheck tool</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // &#60;https://www.spaceroots.org/software/rkcheck/index.html&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Running it for order 5 gives the following order conditions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // for an interpolator:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // order 1 conditions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=1}^{i=s}\left(b_{i} \right) =1</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // order 2 conditions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=1}^{i=s}\left(b_{i} c_{i}\right) = \frac{\theta}{2}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // order 3 conditions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=2}^{i=s}\left(b_{i} \sum_{j=1}^{j=i-1}{\left(a_{i,j} c_{j} \right)}\right) = \frac{\theta^{2}}{6}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=1}^{i=s}\left(b_{i} c_{i}^{2}\right) = \frac{\theta^{2}}{3}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // order 4 conditions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=3}^{i=s}\left(b_{i} \sum_{j=2}^{j=i-1}{\left(a_{i,j} \sum_{k=1}^{k=j-1}{\left(a_{j,k} c_{k} \right)} \right)}\right) = \frac{\theta^{3}}{24}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=2}^{i=s}\left(b_{i} \sum_{j=1}^{j=i-1}{\left(a_{i,j} c_{j}^{2} \right)}\right) = \frac{\theta^{3}}{12}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=2}^{i=s}\left(b_{i} c_{i}\sum_{j=1}^{j=i-1}{\left(a_{i,j} c_{j} \right)}\right) = \frac{\theta^{3}}{8}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=1}^{i=s}\left(b_{i} c_{i}^{3}\right) = \frac{\theta^{3}}{4}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // order 5 conditions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=4}^{i=s}\left(b_{i} \sum_{j=3}^{j=i-1}{\left(a_{i,j} \sum_{k=2}^{k=j-1}{\left(a_{j,k} \sum_{l=1}^{l=k-1}{\left(a_{k,l} c_{l} \right)} \right)} \right)}\right) = \frac{\theta^{4}}{120}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=3}^{i=s}\left(b_{i} \sum_{j=2}^{j=i-1}{\left(a_{i,j} \sum_{k=1}^{k=j-1}{\left(a_{j,k} c_{k}^{2} \right)} \right)}\right) = \frac{\theta^{4}}{60}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=3}^{i=s}\left(b_{i} \sum_{j=2}^{j=i-1}{\left(a_{i,j} c_{j}\sum_{k=1}^{k=j-1}{\left(a_{j,k} c_{k} \right)} \right)}\right) = \frac{\theta^{4}}{40}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=2}^{i=s}\left(b_{i} \sum_{j=1}^{j=i-1}{\left(a_{i,j} c_{j}^{3} \right)}\right) = \frac{\theta^{4}}{20}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=3}^{i=s}\left(b_{i} c_{i}\sum_{j=2}^{j=i-1}{\left(a_{i,j} \sum_{k=1}^{k=j-1}{\left(a_{j,k} c_{k} \right)} \right)}\right) = \frac{\theta^{4}}{30}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=2}^{i=s}\left(b_{i} c_{i}\sum_{j=1}^{j=i-1}{\left(a_{i,j} c_{j}^{2} \right)}\right) = \frac{\theta^{4}}{15}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=2}^{i=s}\left(b_{i} \left(\sum_{j=1}^{j=i-1}{\left(a_{i,j} c_{j} \right)} \right)^{2}\right) = \frac{\theta^{4}}{20}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=2}^{i=s}\left(b_{i} c_{i}^{2}\sum_{j=1}^{j=i-1}{\left(a_{i,j} c_{j} \right)}\right) = \frac{\theta^{4}}{10}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // \sum_{i=1}^{i=s}\left(b_{i} c_{i}^{4}\right) = \frac{\theta^{4}}{5}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // The a_{j,k} and c_{k} are given by the integrator Butcher arrays. What remains to solve</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // are the b_i for the interpolator. They are found by solving the above equations.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // For a given interpolator, some equations are redundant, so in our case when we select</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // all equations from order 1 to 4, we still don&#39;t have enough independent equations</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // to solve from b_1 to b_7. We need to also select one equation from order 5. Here,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // we selected the last equation. It appears this choice implied at least the last 3 equations</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // are fulfilled, but some of the former ones are not, so the resulting interpolator is order 5.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // At the end, we get the b_i as polynomials in theta.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_121'/>
+121
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_121'>8</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final double coeffDot1 =  1 + theta * ( -54            /   5.0 + theta * (   36                   + theta * ( -47                   + theta *   21)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_122'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        final double coeffDot2 =  0;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_123'/>
+123
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_123'>7</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final double coeffDot3 =      theta * (-208            /  15.0 + theta * (  320            / 3.0  + theta * (-608            /  3.0 + theta *  112)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_124'/>
+124
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_124'>8</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final double coeffDot4 =      theta * ( 324            /  25.0 + theta * ( -486            / 5.0  + theta * ( 972            /  5.0 + theta * -567           /  5.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_125'/>
+125
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_125'>19</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+10. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+11. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+12. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+13. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+14. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+15. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+16. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+17. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+18. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+19. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final double coeffDot5 =      theta * ((833 + 343 * Q) / 150.0 + theta * ((-637 - 357 * Q) / 30.0 + theta * ((392 + 287 * Q) / 15.0 + theta * (-49 - 49 * Q) /  5.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_126'/>
+126
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_126'>19</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+10. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+11. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+12. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+13. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+14. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+15. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+16. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+17. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+18. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+19. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final double coeffDot6 =      theta * ((833 - 343 * Q) / 150.0 + theta * ((-637 + 357 * Q) / 30.0 + theta * ((392 - 287 * Q) / 15.0 + theta * (-49 + 49 * Q) /  5.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_127'/>
+127
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_127'>5</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        final double coeffDot7 =      theta * (   3            /   5.0 + theta * (   -3                   + theta *     3));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_129'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        if ((previousState != null) &#38;&#38; (theta &#60;= 0.5)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_131'/>
+131
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_131'>9</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff1    =  1 + theta * ( -27            /   5.0 + theta * (   12                   + theta * ( -47            /  4.0 + theta *   21           /  5.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_132'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            final double coeff2    =  0;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_133'/>
+133
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_133'>8</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff3    =      theta * (-104            /  15.0 + theta * (  320            / 9.0  + theta * (-152            /  3.0 + theta *  112           /  5.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_134'/>
+134
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_134'>8</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff4    =      theta * ( 162            /  25.0 + theta * ( -162            / 5.0  + theta * ( 243            /  5.0 + theta * -567           / 25.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_135'/>
+135
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_135'>19</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+10. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+11. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+12. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+13. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+14. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+15. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+16. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+17. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+18. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+19. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff5    =      theta * ((833 + 343 * Q) / 300.0 + theta * ((-637 - 357 * Q) / 90.0 + theta * ((392 + 287 * Q) / 60.0 + theta * (-49 - 49 * Q) / 25.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_136'/>
+136
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_136'>19</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+10. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+11. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+12. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+13. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+14. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+15. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+16. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+17. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+18. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+19. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff6    =      theta * ((833 - 343 * Q) / 300.0 + theta * ((-637 + 357 * Q) / 90.0 + theta * ((392 - 287 * Q) / 60.0 + theta * (-49 + 49 * Q) / 25.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_137'/>
+137
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_137'>5</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff7    =      theta * (   3            /  10.0 + theta * (   -1                   + theta * (   3            /  4.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_138'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            for (int i = 0; i &#60; interpolatedState.length; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_139'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot1 = yDotK[0][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_140'/>
+140
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_140'>1</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced protected access with private access &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                final double yDot2 = yDotK[1][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_141'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot3 = yDotK[2][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_142'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot4 = yDotK[3][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_143'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot5 = yDotK[4][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_144'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot6 = yDotK[5][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_145'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot7 = yDotK[6][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_146'/>
+146
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_146'>16</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+10. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+11. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+12. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+13. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+14. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+15. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+16. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                interpolatedState[i] = previousState[i] +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        theta * h * (coeff1 * yDot1 + coeff2 * yDot2 + coeff3 * yDot3 +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                                     coeff4 * yDot4 + coeff5 * yDot5 + coeff6 * yDot6 + coeff7 * yDot7);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_149'/>
+149
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_149'>13</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+10. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+11. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+12. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+13. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                interpolatedDerivatives[i] = coeffDot1 * yDot1 + coeffDot2 * yDot2 + coeffDot3 * yDot3 +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        coeffDot4 * yDot4 + coeffDot5 * yDot5 + coeffDot6 * yDot6 + coeffDot7 * yDot7;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_152'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_154'/>
+154
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_154'>9</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff1    =  -1 /  20.0 + theta * (  19            /  20.0 + theta * (  -89             /  20.0  + theta * (   151            /  20.0 + theta *  -21           /   5.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_155'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            final double coeff2    =  0;</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_156'/>
+156
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_156'>9</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff3    = -16 /  45.0 + theta * ( -16            /  45.0 + theta * ( -328             /  45.0  + theta * (   424            /  15.0 + theta * -112           /   5.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_157'/>
+157
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_157'>7</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff4    =               theta * (                          theta * (  162             /  25.0  + theta * (  -648            /  25.0 + theta *  567           /  25.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_158'/>
+158
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_158'>17</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+10. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+11. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+12. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+13. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+14. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+15. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+16. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+17. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff5    = -49 / 180.0 + theta * ( -49            / 180.0 + theta * ((2254 + 1029 * Q) / 900.0  + theta * ((-1372 - 847 * Q) / 300.0 + theta * ( 49 + 49 * Q) /  25.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_159'/>
+159
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_159'>17</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double subtraction with addition &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+10. computeInterpolatedStateAndDerivatives : Replaced double division with multiplication &rarr; NO_COVERAGE<br/>
+11. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+12. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+13. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+14. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+15. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+16. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+17. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff6    = -49 / 180.0 + theta * ( -49            / 180.0 + theta * ((2254 - 1029 * Q) / 900.0  + theta * ((-1372 + 847 * Q) / 300.0 + theta * ( 49 - 49 * Q) /  25.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_160'/>
+160
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_160'>6</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            final double coeff7    =  -1 /  20.0 + theta * (  -1            /  20.0 + theta * (    1             /   4.0  + theta * (    -3            /   4.0)));</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_161'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            for (int i = 0; i &#60; interpolatedState.length; ++i) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_162'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot1 = yDotK[0][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_163'/>
+163
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_163'>1</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced protected access with private access &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                final double yDot2 = yDotK[1][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_164'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot3 = yDotK[2][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_165'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot4 = yDotK[3][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_166'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot5 = yDotK[4][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_167'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot6 = yDotK[5][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_168'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                final double yDot7 = yDotK[6][i];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_169'/>
+169
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_169'>15</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+10. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+11. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+12. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+13. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+14. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+15. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                interpolatedState[i] = currentState[i] +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        oneMinusThetaH * (coeff1 * yDot1 + coeff2 * yDot2 + coeff3 * yDot3 +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                                          coeff4 * yDot4 + coeff5 * yDot5 + coeff6 * yDot6 + coeff7 * yDot7);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_172'/>
+172
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_172'>13</a>
+<span>
+1. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+2. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+3. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+4. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+5. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+6. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+7. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+8. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+9. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+10. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+11. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+12. computeInterpolatedStateAndDerivatives : Replaced double multiplication with division &rarr; NO_COVERAGE<br/>
+13. computeInterpolatedStateAndDerivatives : Replaced double addition with subtraction &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                interpolatedDerivatives[i] = coeffDot1 * yDot1 + coeffDot2 * yDot2 + coeffDot3 * yDot3 +</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        coeffDot4 * yDot4 + coeffDot5 * yDot5 + coeffDot6 * yDot6 + coeffDot7 * yDot7;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_177'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@52179411_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@52179411_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_121'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_123'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_124'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_125'>125</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_125'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_126'>126</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_126'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_127'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_131'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_133'>133</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_133'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_134'>134</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_134'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_135'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_136'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>18.<span><b>18</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>19.<span><b>19</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_137'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_140'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced protected access with private access &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_146'>146</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_146'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_149'>149</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_149'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_154'>154</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_154'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_156'>156</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_156'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_157'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_158'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_159'>159</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_159'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double subtraction with addition &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double division with multiplication &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>16.<span><b>16</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>17.<span><b>17</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_160'>160</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_160'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_163'>163</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_163'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced protected access with private access &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_169'>169</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_169'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>14.<span><b>14</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>15.<span><b>15</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@52179411_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@52179411_172'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>6.<span><b>6</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>7.<span><b>7</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>8.<span><b>8</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>9.<span><b>9</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>10.<span><b>10</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>11.<span><b>11</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>12.<span><b>12</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double multiplication with division &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>13.<span><b>13</b><br/><b>Location : </b>computeInterpolatedStateAndDerivatives<br/><b>Killed by : </b>none</span></span> Replaced double addition with subtraction &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ACCESS_MODIFIER_CHANGES_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.1.7
+
+</body>
+</html>
