@@ -33,12 +33,12 @@ public class BusinessLogicTest {
         Assert.assertEquals(15, businessLogic.getPrice(amount, true));
     }
 
-    @Test
+    /*@Test
     public void testDiscountAmountCornerCase() {
         BusinessLogic businessLogic = new BusinessLogic();
 
         //Just enough for discount, mutation info > should fail this test
         int amount = 20;
         Assert.assertEquals(300, businessLogic.getPrice(amount, false));
-    }
+    }*/
 }
