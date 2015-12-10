@@ -138,7 +138,8 @@ public final class Mutator {
     /**
      * Experimental mutator that removed assignments to member variables.
      */
-    add("EXPERIMENTAL_MEMBER_VARIABLE", new org.pitest.mutationtest.engine.gregor.mutators.experimental.MemberVariableMutator());
+    add("EXPERIMENTAL_MEMBER_VARIABLE",
+            new org.pitest.mutationtest.engine.gregor.mutators.experimental.MemberVariableMutator());
 
     add("STATIC_MODIFIER_CHANGES",
             new org.pitest.mutationtest.engine.gregor.mutators.StaticFieldMutator());
