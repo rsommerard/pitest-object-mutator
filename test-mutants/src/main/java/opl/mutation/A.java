@@ -1,11 +1,15 @@
 package opl.mutation;
 
-/**
- * Created by sommerard on 09/12/15.
- */
 public class A {
 
+    public static int staticInt = 42;
+    private String mNotAStaticString = "I'm not static";
+
     public int getInteger() {
-        return 5;
+        return A.staticInt;
+    }
+
+    public String getMemberString() {
+        return mNotAStaticString;
     }
 }
