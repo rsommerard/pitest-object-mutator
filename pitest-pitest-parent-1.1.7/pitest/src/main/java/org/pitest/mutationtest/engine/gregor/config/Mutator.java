@@ -141,9 +141,6 @@ public final class Mutator {
     add("EXPERIMENTAL_MEMBER_VARIABLE",
             new org.pitest.mutationtest.engine.gregor.mutators.experimental.MemberVariableMutator());
 
-    add("STATIC_MODIFIER_CHANGES",
-            new org.pitest.mutationtest.engine.gregor.mutators.StaticFieldMutator());
-
     /**
      * Experimental mutator that swaps labels in switch statements
      */
