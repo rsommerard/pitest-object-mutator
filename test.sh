@@ -5,6 +5,12 @@ BASEDIR=$(pwd)
 cd $BASEDIR/pitest-pitest-parent-1.1.7/
 mvn clean install -DskipTests=true
 
+OUT=$?
+if [[ $OUT != 0 ]]; then
+  echo "Error"
+  exit 1
+fi
+
 #cd $BASEDIR/kill-the-mutants/
 #mvn clean
 
