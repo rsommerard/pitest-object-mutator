@@ -2,11 +2,14 @@ package opl.mutation;
 
 public class Stack {
 
-    private String traceRtn;
+    private String traceStringRtn;
 
     public Stack() {
         Trace t = new Trace();
+        traceStringRtn = t.trace(5, "World");
+    }
 
-        traceRtn = t.trace(5, "Hello", "World");
+    public String getTraceStringRtn() {
+        return this.traceStringRtn;
     }
 }
