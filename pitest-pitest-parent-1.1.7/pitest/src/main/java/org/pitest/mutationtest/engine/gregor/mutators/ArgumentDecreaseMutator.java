@@ -47,9 +47,9 @@ class ArgumentDecreaseVisitor extends MethodVisitor {
 
         if (hasEnoughArguments(desc)) {
             final MutationIdentifier newId = this.context.registerMutation(
-                    this.factory, "removed argument to " + owner + "::" + name);
+                    this.factory, "removed last argument in " + owner + "::" + name);
 
-            System.out.println("################################################################################");
+            /*System.out.println("################################################################################");
             System.out.println("opcode: " + opcode);
             System.out.println("owner: " + owner);
             System.out.println("name: " + name);
@@ -57,14 +57,12 @@ class ArgumentDecreaseVisitor extends MethodVisitor {
             System.out.println("itf: " + itf);
             System.out.println("arg number: " + Type.getArgumentTypes(desc).length);
             System.out.println("hasEnoughArguments: " + hasEnoughArguments(desc));
-            System.out.println("shouldMutate: " + this.context.shouldMutate(newId));
+            System.out.println("shouldMutate: " + this.context.shouldMutate(newId));*/
 
             Type[] arguments = Type.getArgumentTypes(desc);
             int i = arguments.length - 1;
-            //int j = i - 1;
 
             Type stackTop = arguments[i];
-            //Type belowTop = arguments[j];
 
             if (stackTop.getSize() == 1) {
                 mv.visitInsn(Opcodes.POP);
@@ -84,14 +82,10 @@ class ArgumentDecreaseVisitor extends MethodVisitor {
             /*System.out.println(stackTop);
             System.out.println(stackTop.getSize());
             System.out.println(belowTop);
-            System.out.println(belowTop.getSize());
-
-            swap(this.mv, stackTop, belowTop);*/
+            System.out.println(belowTop.getSize());*/
 
             String newDesc = Type.getMethodDescriptor(Type.getReturnType(desc), newArguments);
             this.mv.visitMethodInsn(opcode, owner, name, newDesc, itf);
-
-            //this.mv.visitMethodInsn(opcode, owner, name, desc, itf);
         } else {
             this.mv.visitMethodInsn(opcode, owner, name, desc, itf);
         }

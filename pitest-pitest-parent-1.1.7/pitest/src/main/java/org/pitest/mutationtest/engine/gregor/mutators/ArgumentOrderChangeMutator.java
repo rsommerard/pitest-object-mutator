@@ -47,9 +47,9 @@ class ArgumentOrderChangeVisitor extends MethodVisitor {
 
         if (hasEnoughArguments(desc)) {
             final MutationIdentifier newId = this.context.registerMutation(
-                    this.factory, "removed argument to " + owner + "::" + name);
+                    this.factory, "swap the 2 last arguments in " + owner + "::" + name);
 
-            System.out.println("################################################################################");
+            /*System.out.println("################################################################################");
             System.out.println("opcode: " + opcode);
             System.out.println("owner: " + owner);
             System.out.println("name: " + name);
@@ -57,7 +57,7 @@ class ArgumentOrderChangeVisitor extends MethodVisitor {
             System.out.println("itf: " + itf);
             System.out.println("arg number: " + Type.getArgumentTypes(desc).length);
             System.out.println("hasEnoughArguments: " + hasEnoughArguments(desc));
-            System.out.println("shouldMutate: " + this.context.shouldMutate(newId));
+            System.out.println("shouldMutate: " + this.context.shouldMutate(newId));*/
 
             Type[] arguments = Type.getArgumentTypes(desc);
             int i = arguments.length - 1;
@@ -83,8 +83,7 @@ class ArgumentOrderChangeVisitor extends MethodVisitor {
             newArguments[j] = stackTop;
             newArguments[i] = belowTop;
 
-            System.out.println(Type.getMethodDescriptor(Type.getReturnType(desc), newArguments));
-
+            //System.out.println(Type.getMethodDescriptor(Type.getReturnType(desc), newArguments));
 
             String newDesc = Type.getMethodDescriptor(Type.getReturnType(desc), newArguments);
 
