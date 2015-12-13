@@ -75,7 +75,7 @@ class ArgumentDecreaseVisitor extends MethodVisitor {
                 newArguments[k] = arguments[k];
             }
 
-            System.out.println(Type.getMethodDescriptor(Type.getReturnType(desc), newArguments));
+            //System.out.println(Type.getMethodDescriptor(Type.getReturnType(desc), newArguments));
 
             //System.out.println(Type.getMethodDescriptor(Type.INT_TYPE, arguments));
 

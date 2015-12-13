@@ -47,7 +47,7 @@ class ArgumentOrderChangeVisitor extends MethodVisitor {
 
         if (hasEnoughArguments(desc)) {
             final MutationIdentifier newId = this.context.registerMutation(
-                    this.factory, "swap the 2 last arguments in " + owner + "::" + name);
+                    this.factory, "swaped the 2 last arguments in " + owner + "::" + name);
 
             /*System.out.println("################################################################################");
             System.out.println("opcode: " + opcode);
@@ -66,10 +66,10 @@ class ArgumentOrderChangeVisitor extends MethodVisitor {
             Type stackTop = arguments[i];
             Type belowTop = arguments[j];
 
-            System.out.println(stackTop);
+            /*System.out.println(stackTop);
             System.out.println(stackTop.getSize());
             System.out.println(belowTop);
-            System.out.println(belowTop.getSize());
+            System.out.println(belowTop.getSize());*/
 
             swap(this.mv, stackTop, belowTop);
 
