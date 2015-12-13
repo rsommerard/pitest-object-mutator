@@ -1,0 +1,4329 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10;display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+
+.pop span { border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+</style>
+
+</head>
+<body>
+
+
+<h1>CopticChronology.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2001-2014 Stephen Colebourne</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.joda.time.chrono;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.ConcurrentHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.Chronology;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.DateTime;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.DateTimeConstants;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.DateTimeField;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.DateTimeZone;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.field.SkipDateTimeField;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Implements the Coptic calendar system, which defines every fourth year as</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * leap, much like the Julian calendar. The year is broken down into 12 months,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * each 30 days in length. An extra period at the end of the year is either 5</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * or 6 days in length. In this implementation, it is considered a 13th month.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Year 1 in the Coptic calendar began on August 29, 284 CE (Julian), thus</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Coptic years do not begin at the same time as Julian years. This chronology</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * is not proleptic, as it does not allow dates before the first Coptic year.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This implementation defines a day as midnight to midnight exactly as per</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * the ISO chronology. Some references indicate that a coptic day starts at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * sunset on the previous ISO day, but this has not been confirmed and is not</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * implemented.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * CopticChronology is thread-safe and immutable.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see &#60;a href=&#34;http://en.wikipedia.org/wiki/Coptic_calendar&#34;&#62;Wikipedia&#60;/a&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see JulianChronology</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Brian S O&#39;Neill</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class CopticChronology extends BasicFixedMonthChronology {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Serialization lock */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = -5972804258688333942L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constant value for &#39;Anno Martyrum&#39; or &#39;Era of the Martyrs&#39;, equivalent</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * to the value returned for AD/CE.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static final int AM = DateTimeConstants.CE;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** A singleton era field. */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_62'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    private static final DateTimeField ERA_FIELD = new BasicSingleEraDateTimeField(&#34;AM&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The lowest year that can be fully supported. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final int MIN_YEAR = -292269337;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The highest year that can be fully supported. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final int MAX_YEAR = 292272708;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Cache of zone to chronology arrays */</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_71'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    private static final ConcurrentHashMap&#60;DateTimeZone, CopticChronology[]&#62; cCache = new ConcurrentHashMap&#60;DateTimeZone, CopticChronology[]&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Singleton instance of a UTC CopticChronology */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final CopticChronology INSTANCE_UTC;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // init after static fields</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_77'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        INSTANCE_UTC = getInstance(DateTimeZone.UTC);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_78'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets an instance of the CopticChronology.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The time zone of the returned instance is UTC.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a singleton UTC instance of the chronology</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static CopticChronology getInstanceUTC() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_88'/>
+88
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_88'>1</a>
+<span>
+1. getInstanceUTC : mutated return of Object value for org/joda/time/chrono/CopticChronology::getInstanceUTC to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return INSTANCE_UTC;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets an instance of the CopticChronology in the default time zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a chronology in the default time zone</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static CopticChronology getInstance() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_97'/>
+97
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_97'>1</a>
+<span>
+1. getInstance : mutated return of Object value for org/joda/time/chrono/CopticChronology::getInstance to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return getInstance(DateTimeZone.getDefault(), 4);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets an instance of the CopticChronology in the given time zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param zone  the time zone to get the chronology in, null is default</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a chronology in the specified time zone</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static CopticChronology getInstance(DateTimeZone zone) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_107'/>
+107
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_107'>1</a>
+<span>
+1. getInstance : mutated return of Object value for org/joda/time/chrono/CopticChronology::getInstance to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return getInstance(zone, 4);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets an instance of the CopticChronology in the given time zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param zone  the time zone to get the chronology in, null is default</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param minDaysInFirstWeek  minimum number of days in first week of the year; default is 4</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a chronology in the specified time zone</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static CopticChronology getInstance(DateTimeZone zone, int minDaysInFirstWeek) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_118'/>
+118
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_118'>1</a>
+<span>
+1. getInstance : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (zone == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_119'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            zone = DateTimeZone.getDefault();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        CopticChronology chrono;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_122'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        CopticChronology[] chronos = cCache.get(zone);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_123'/>
+123
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_123'>1</a>
+<span>
+1. getInstance : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (chronos == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_124'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            chronos = new CopticChronology[7];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_125'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            CopticChronology[] oldChronos = cCache.putIfAbsent(zone, chronos);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_126'/>
+126
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_126'>1</a>
+<span>
+1. getInstance : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (oldChronos != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_127'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                chronos = oldChronos;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_131'/>
+131
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_131'>1</a>
+<span>
+1. getInstance : Replaced integer subtraction with addition &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            chrono = chronos[minDaysInFirstWeek - 1];</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_132'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (ArrayIndexOutOfBoundsException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_133'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            throw new IllegalArgumentException</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                (&#34;Invalid min days in first week: &#34; + minDaysInFirstWeek);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_135'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_136'/>
+136
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_136'>1</a>
+<span>
+1. getInstance : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (chrono == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_137'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            synchronized (chronos) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_138'/>
+138
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_138'>1</a>
+<span>
+1. getInstance : Replaced integer subtraction with addition &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                chrono = chronos[minDaysInFirstWeek - 1];</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_139'/>
+139
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_139'>1</a>
+<span>
+1. getInstance : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                if (chrono == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_140'/>
+140
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_140'>1</a>
+<span>
+1. getInstance : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    if (zone == DateTimeZone.UTC) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        // First create without a lower limit.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_142'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                        chrono = new CopticChronology(null, null, minDaysInFirstWeek);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        // Impose lower limit and make another CopticChronology.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_144'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                        DateTime lowerLimit = new DateTime(1, 1, 1, 0, 0, 0, 0, chrono);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_145'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                        chrono = new CopticChronology</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_146'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                            (LimitChronology.getInstance(chrono, lowerLimit, null),</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                             null, minDaysInFirstWeek);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_148'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                    } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_149'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        chrono = getInstance(DateTimeZone.UTC, minDaysInFirstWeek);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_150'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                        chrono = new CopticChronology</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_151'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                            (ZonedChronology.getInstance(chrono, zone), null, minDaysInFirstWeek);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_153'/>
+153
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_153'>1</a>
+<span>
+1. getInstance : Replaced integer subtraction with addition &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                    chronos[minDaysInFirstWeek - 1] = chrono;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_155'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_157'/>
+157
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_157'>1</a>
+<span>
+1. getInstance : mutated return of Object value for org/joda/time/chrono/CopticChronology::getInstance to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return chrono;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Constructors and instance variables</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Restricted constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    CopticChronology(Chronology base, Object param, int minDaysInFirstWeek) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_166'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(base, param, minDaysInFirstWeek);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_167'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Serialization singleton.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private Object readResolve() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_173'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Chronology base = getBase();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_174'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int minDays = getMinimumDaysInFirstWeek();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_175'>1</a>
+<span>
+1. readResolve : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        minDays = (minDays == 0 ? 4 : minDays);  // handle rename of BaseGJChronology</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_176'/>
+176
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_176'>1</a>
+<span>
+1. readResolve : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return base == null ?</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_177'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                getInstance(DateTimeZone.UTC, minDays) :</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_178'/>
+178
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_178'>1</a>
+<span>
+1. readResolve : mutated return of Object value for org/joda/time/chrono/CopticChronology::readResolve to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    getInstance(base.getZone(), minDays);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Conversion</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the Chronology in the UTC time zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the chronology in UTC</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Chronology withUTC() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_189'/>
+189
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_189'>1</a>
+<span>
+1. withUTC : mutated return of Object value for org/joda/time/chrono/CopticChronology::withUTC to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return INSTANCE_UTC;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the Chronology in a specific time zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param zone  the zone to get the chronology in, null is default</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the chronology</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Chronology withZone(DateTimeZone zone) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_199'/>
+199
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_199'>1</a>
+<span>
+1. withZone : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (zone == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_200'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            zone = DateTimeZone.getDefault();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_202'/>
+202
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_202'>1</a>
+<span>
+1. withZone : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (zone == getZone()) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_203'/>
+203
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_203'>1</a>
+<span>
+1. withZone : mutated return of Object value for org/joda/time/chrono/CopticChronology::withZone to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_205'/>
+205
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_205'>1</a>
+<span>
+1. withZone : mutated return of Object value for org/joda/time/chrono/CopticChronology::withZone to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return getInstance(zone);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    boolean isLeapDay(long instant) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_211'/>
+211
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_211'>3</a>
+<span>
+1. isLeapDay : negated conditional &rarr; KILLED<br/>
+2. isLeapDay : negated conditional &rarr; KILLED<br/>
+3. isLeapDay : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return dayOfMonth().get(instant) == 6 &#38;&#38; monthOfYear().isLeap(instant);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    long calculateFirstDayOfYearMillis(int year) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Java epoch is 1970-01-01 Gregorian which is 1686-04-23 Coptic.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Calculate relative to the nearest leap year and account for the</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // difference later.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_219'/>
+219
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_219'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_220'/>
+220
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_220'>1</a>
+<span>
+1. calculateFirstDayOfYearMillis : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        int relativeYear = year - 1687;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        int leapYears;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_222'/>
+222
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_222'>2</a>
+<span>
+1. calculateFirstDayOfYearMillis : changed conditional boundary &rarr; KILLED<br/>
+2. calculateFirstDayOfYearMillis : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (relativeYear &#60;= 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // Add 3 before shifting right since /4 and &#62;&#62;2 behave differently</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // on negative numbers.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_225'/>
+225
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_225'>2</a>
+<span>
+1. calculateFirstDayOfYearMillis : Replaced integer addition with subtraction &rarr; KILLED<br/>
+2. calculateFirstDayOfYearMillis : Replaced Shift Right with Shift Left &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            leapYears = (relativeYear + 3) &#62;&#62; 2;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_227'/>
+227
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_227'>1</a>
+<span>
+1. calculateFirstDayOfYearMillis : Replaced Shift Right with Shift Left &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            leapYears = relativeYear &#62;&#62; 2;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // For post 1687 an adjustment is needed as jan1st is before leap day</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_229'/>
+229
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_229'>1</a>
+<span>
+1. calculateFirstDayOfYearMillis : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (!isLeapYear(year)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_230'/>
+230
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_230'>1</a>
+<span>
+1. calculateFirstDayOfYearMillis : Changed increment from 1 to -1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                leapYears++;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_233'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_234'/>
+234
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_234'>3</a>
+<span>
+1. calculateFirstDayOfYearMillis : Replaced long multiplication with division &rarr; KILLED<br/>
+2. calculateFirstDayOfYearMillis : Replaced long addition with subtraction &rarr; KILLED<br/>
+3. calculateFirstDayOfYearMillis : Replaced long multiplication with division &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        long millis = (relativeYear * 365L + leapYears)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            * (long)DateTimeConstants.MILLIS_PER_DAY;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Adjust to account for difference between 1687-01-01 and 1686-04-23.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_239'/>
+239
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_239'>2</a>
+<span>
+1. calculateFirstDayOfYearMillis : Replaced long addition with subtraction &rarr; KILLED<br/>
+2. calculateFirstDayOfYearMillis : replaced return of long value with value + 1 for org/joda/time/chrono/CopticChronology::calculateFirstDayOfYearMillis &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return millis + (365L - 112) * DateTimeConstants.MILLIS_PER_DAY;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int getMinYear() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_244'/>
+244
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_244'>1</a>
+<span>
+1. getMinYear : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return MIN_YEAR;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_246'/>
+246
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_246'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int getMaxYear() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_249'/>
+249
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_249'>1</a>
+<span>
+1. getMaxYear : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return MAX_YEAR;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_250'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_251'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_252'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_253'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    long getApproxMillisAtEpochDividedByTwo() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_254'/>
+254
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_254'>1</a>
+<span>
+1. getApproxMillisAtEpochDividedByTwo : replaced return of long value with value + 1 for org/joda/time/chrono/CopticChronology::getApproxMillisAtEpochDividedByTwo &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (1686L * MILLIS_PER_YEAR + 112L * DateTimeConstants.MILLIS_PER_DAY) / 2;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_256'/>
+256
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_256'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_257'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void assemble(Fields fields) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_259'/>
+259
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_259'>1</a>
+<span>
+1. assemble : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (getBase() == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_260'/>
+260
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_260'>1</a>
+<span>
+1. assemble : removed call to org/joda/time/chrono/BasicFixedMonthChronology::assemble &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            super.assemble(fields);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_261'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_262'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // Coptic, like Julian, has no year zero.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_263'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            fields.year = new SkipDateTimeField(this, fields.year);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_264'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            fields.weekyear = new SkipDateTimeField(this, fields.weekyear);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_265'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_266'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            fields.era = ERA_FIELD;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_267'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            fields.monthOfYear = new BasicMonthOfYearDateTimeField(this, 13);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_268'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            fields.months = fields.monthOfYear.getDurationField();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_269'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_270'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_271'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3b854041_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_272'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_88'>88</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_88'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstanceUTC<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testFactoryUTC(org.joda.time.chrono.TestCopticChronology)</span></span> mutated return of Object value for org/joda/time/chrono/CopticChronology::getInstanceUTC to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testWithUTC(org.joda.time.chrono.TestCopticChronology)</span></span> mutated return of Object value for org/joda/time/chrono/CopticChronology::getInstance to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testWithUTC(org.joda.time.chrono.TestCopticChronology)</span></span> mutated return of Object value for org/joda/time/chrono/CopticChronology::getInstance to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_118'>118</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_118'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testFactory_Zone(org.joda.time.chrono.TestCopticChronology)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_123'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_126'>126</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_126'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationFields(org.joda.time.chrono.TestCopticChronology)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_131'>131</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_131'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with addition &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_136'>136</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_136'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_138'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with addition &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_139'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_140'>140</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_140'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_153'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>none</span></span> Replaced integer subtraction with addition &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_157'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInstance<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testWithUTC(org.joda.time.chrono.TestCopticChronology)</span></span> mutated return of Object value for org/joda/time/chrono/CopticChronology::getInstance to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readResolve<br/><b>Killed by : </b>org.joda.time.TestSerialization.testSerializedCopticChronology(org.joda.time.TestSerialization)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_176'>176</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_176'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readResolve<br/><b>Killed by : </b>org.joda.time.TestTimeOfDay_Basics.testSerialization(org.joda.time.TestTimeOfDay_Basics)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_178'>178</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_178'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>readResolve<br/><b>Killed by : </b>org.joda.time.TestTimeOfDay_Basics.testSerialization(org.joda.time.TestTimeOfDay_Basics)</span></span> mutated return of Object value for org/joda/time/chrono/CopticChronology::readResolve to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_189'>189</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_189'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withUTC<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testWithUTC(org.joda.time.chrono.TestCopticChronology)</span></span> mutated return of Object value for org/joda/time/chrono/CopticChronology::withUTC to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_199'>199</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_199'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withZone<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testWithZone(org.joda.time.chrono.TestCopticChronology)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_202'>202</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_202'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withZone<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testWithZone(org.joda.time.chrono.TestCopticChronology)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_203'>203</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_203'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withZone<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testWithZone(org.joda.time.chrono.TestCopticChronology)</span></span> mutated return of Object value for org/joda/time/chrono/CopticChronology::withZone to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_205'>205</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_205'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withZone<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testWithZone(org.joda.time.chrono.TestCopticChronology)</span></span> mutated return of Object value for org/joda/time/chrono/CopticChronology::withZone to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_211'>211</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_211'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isLeapDay<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testLeap_6_13(org.joda.time.chrono.TestCopticChronology)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isLeapDay<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testLeap_6_13(org.joda.time.chrono.TestCopticChronology)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isLeapDay<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testLeap_6_13(org.joda.time.chrono.TestCopticChronology)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_220'>220</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_220'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_222'>222</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_222'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_225'>225</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_225'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced Shift Right with Shift Left &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_227'>227</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_227'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced Shift Right with Shift Left &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_229'>229</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_229'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_230'>230</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_230'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Changed increment from 1 to -1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_234'>234</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_234'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced long multiplication with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced long addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced long multiplication with division &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_239'>239</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_239'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced long addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>calculateFirstDayOfYearMillis<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> replaced return of long value with value + 1 for org/joda/time/chrono/CopticChronology::calculateFirstDayOfYearMillis &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_244'>244</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_244'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getMinYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_249'>249</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_249'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getMaxYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testEpoch(org.joda.time.chrono.TestCopticChronology)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_254'>254</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_254'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getApproxMillisAtEpochDividedByTwo<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> replaced return of long value with value + 1 for org/joda/time/chrono/CopticChronology::getApproxMillisAtEpochDividedByTwo &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_259'>259</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_259'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>assemble<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3b854041_260'>260</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3b854041_260'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>assemble<br/><b>Killed by : </b>org.joda.time.TestTimeOfDay_Basics.testSerialization(org.joda.time.TestTimeOfDay_Basics)</span></span> removed call to org/joda/time/chrono/BasicFixedMonthChronology::assemble &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.joda.time.TestTimeOfDay_Basics.testWithChronologyRetainFields_sameChrono(org.joda.time.TestTimeOfDay_Basics) (0 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testGetValues(org.joda.time.TestTimeOfDay_Basics) (0 ms)</li><li>org.joda.time.TestMonthDay_Basics.testGetFieldType(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestPartial_Basics.testIsEqual_TOD(org.joda.time.TestPartial_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_weekyearOfCentury(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testSerialization(org.joda.time.TestTimeOfDay_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_dayOfMonth(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testWithChronologyRetainFields_nullChrono(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestLocalTime_Basics.testGetField_int(org.joda.time.TestLocalTime_Basics) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testIsSupported(org.joda.time.TestYearMonth_Basics) (1 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RI_RP3(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testEqualsHashCode(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testToPeriod_PeriodType1(org.joda.time.TestInterval_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testDateFields(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestDurationFieldType.test_months(org.joda.time.TestDurationFieldType) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToInterval_nullZone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestPartial_Basics.testCompareTo(org.joda.time.TestPartial_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testGetFieldTypes(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testToInterval_Zone(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Properties.testPropertyEquals(org.joda.time.TestYearMonthDay_Properties) (1 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testEqualsHashCode(org.joda.time.TestTimeOfDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalTime_Basics.testGetValues(org.joda.time.TestLocalTime_Basics) (0 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testGetField(org.joda.time.TestTimeOfDay_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testFactoryUTC(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestDurationFieldType.test_weekyears(org.joda.time.TestDurationFieldType) (1 ms)</li><li>org.joda.time.TestMonthDay_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestMonthDay_Properties) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtStartOfDay_Zone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestDurationFieldType.test_minutes(org.joda.time.TestDurationFieldType) (0 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyEqualsHashCodeYear(org.joda.time.TestDateTime_Properties) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testGetFieldType(org.joda.time.TestYearMonth_Basics) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testSerialization(org.joda.time.TestYearMonth_Basics) (2 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testWithChronologyRetainFields_sameChrono(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testFactory(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestPartial_Basics.testIsBefore_TOD(org.joda.time.TestPartial_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_dayOfYear(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testGetFieldType(org.joda.time.TestTimeOfDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime_nullRI(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDate_winter(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToInterval_Zone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtCurrentTime(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_nullLocalTime_Zone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_LocalTime_nullZone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testWithPeriodBeforeEnd1(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testGetField(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.convert.TestDateConverter.testSupportedType(org.joda.time.convert.TestDateConverter) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testGetField(org.joda.time.TestYearMonthDay_Basics) (10 ms)</li><li>org.joda.time.TestMonthDay_Basics.testWithChronologyRetainFields_Chrono(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestYearMonth_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestYearMonth_Properties) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testToLocalDate(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_secondOfDay(org.joda.time.TestDateTimeFieldType) (0 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestDateTime_Properties) (1 ms)</li><li>org.joda.time.TestDateTime_Basics.testToLocalDateTime(org.joda.time.TestDateTime_Basics) (1 ms)</li><li>org.joda.time.TestDateTime_Basics.testToLocalTime(org.joda.time.TestDateTime_Basics) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testGetFieldType_int(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestPartial_Basics.testWithChronologyRetainFields_Chrono(org.joda.time.TestPartial_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testSerialization(org.joda.time.TestLocalDate_Basics) (4 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToLocalDateTime_LocalTime(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestLocalTime_Basics.testEqualsHashCode(org.joda.time.TestLocalTime_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtMidnight(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.convert.TestDateConverter.testToString(org.joda.time.convert.TestDateConverter) (0 ms)</li><li>org.joda.time.TestChronology.testToString(org.joda.time.TestChronology) (2 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_era(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToLocalDateTime_nullLocalTime(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.convert.TestDateConverter.testGetInstantMillis_Object_Chronology(org.joda.time.convert.TestDateConverter) (1 ms)</li><li>org.joda.time.TestDurationFieldType.test_days(org.joda.time.TestDurationFieldType) (0 ms)</li><li>org.joda.time.TestLocalTime_Basics.testGetFields(org.joda.time.TestLocalTime_Basics) (0 ms)</li><li>org.joda.time.TestMonthDay_Basics.testGetFields(org.joda.time.TestMonthDay_Basics) (0 ms)</li><li>org.joda.time.convert.TestDateConverter.testSingleton(org.joda.time.convert.TestDateConverter) (0 ms)</li><li>org.joda.time.TestPartial_Basics.testSerialization(org.joda.time.TestPartial_Basics) (3 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateMidnight(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testGetFields(org.joda.time.TestTimeOfDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testGetFieldTypes(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_PeriodType_Chronology1(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testGetFieldType(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testToDateTimeToday_nullZone(org.joda.time.TestTimeOfDay_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_centuryOfEra(org.joda.time.TestDateTimeFieldType) (2 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testWithChronologyRetainFields_invalidInNewChrono(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtStartOfDay_nullZone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_RI(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_TOD_nullZone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestDateMidnight_Basics.testToYearMonthDay(org.joda.time.TestDateMidnight_Basics) (0 ms)</li><li>org.joda.time.TestMonthDay_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestMonthDay_Properties) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RP_RI3(org.joda.time.TestInterval_Constructors) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testSerialization(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testGetFields(org.joda.time.TestYearMonth_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestLocalDate_Properties) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testEqualsHashCode(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_halfdayOfDay(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testWithChronologyRetainFields_invalidInNewChrono(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.convert.TestReadableIntervalConverter.testSetIntoInterval_Object1(org.joda.time.convert.TestReadableIntervalConverter) (1 ms)</li><li>org.joda.time.TestLocalTime_Basics.testToDateTime_RI(org.joda.time.TestLocalTime_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToLocalDate(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_TOD(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtCurrentTime_Zone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestMonthDay_Basics.testToDateTime_RI(org.joda.time.TestMonthDay_Basics) (2 ms)</li><li>org.joda.time.TestInterval_Basics.testWithPeriodAfterStart1(org.joda.time.TestInterval_Basics) (0 ms)</li><li>org.joda.time.TestDateTime_Basics.testToYearMonthDay(org.joda.time.TestDateTime_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testWithChronologyRetainFields_nullChrono(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDate_summer_Zone(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testGetFields(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testSampleDateWithZone(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestPartial_Basics.testIsAfter_TOD(org.joda.time.TestPartial_Basics) (1 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testToDateTime_RI(org.joda.time.TestTimeOfDay_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testGetFieldTypes(org.joda.time.TestMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testWithChronologyRetainFields_Chrono(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestDurationFieldType.test_millis(org.joda.time.TestDurationFieldType) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeLenient(org.joda.time.TestLocalDate_Basics) (2 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_hourOfDay(org.joda.time.TestDateTimeFieldType) (0 ms)</li><li>org.joda.time.TestDurationFieldType.test_weeks(org.joda.time.TestDurationFieldType) (0 ms)</li><li>org.joda.time.TestDurationFieldType.test_hours(org.joda.time.TestDurationFieldType) (1 ms)</li><li>org.joda.time.TestDateTime_Basics.testToLocalDate(org.joda.time.TestDateTime_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDate_summer(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_minuteOfHour(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testEqualsHashCode(org.joda.time.TestMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_year(org.joda.time.TestDateTimeFieldType) (0 ms)</li><li>org.joda.time.TestMonthDay_Properties.testPropertyEquals(org.joda.time.TestMonthDay_Properties) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testGetFieldType_int(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDate_winter(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToLocalTime(org.joda.time.TestLocalDateTime_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testGetField_int(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_weekOfWeekyear(org.joda.time.TestDateTimeFieldType) (0 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_yearOfCentury(org.joda.time.TestDateTimeFieldType) (0 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestDateTime_Properties) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_RI(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestDateMidnight_Basics.testToLocalDate(org.joda.time.TestDateMidnight_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testLeap_6_13(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestDurationFieldType.test_centuries(org.joda.time.TestDurationFieldType) (2 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime_nullZone(org.joda.time.TestLocalDateTime_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testSerialization(org.joda.time.TestInterval_Basics) (10 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime_Zone(org.joda.time.TestLocalDateTime_Basics) (0 ms)</li><li>org.joda.time.TestDurationFieldType.test_halfdays(org.joda.time.TestDurationFieldType) (1 ms)</li><li>org.joda.time.TestPartial_Basics.testGetValue(org.joda.time.TestPartial_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtCurrentTime_Zone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_Chronology1(org.joda.time.TestMutablePeriod_Constructors) (4 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_dayOfWeek(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestTimeOfDay_Constructors.testConstructor_todObject(org.joda.time.TestTimeOfDay_Constructors) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testIsSupported(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_hourOfHalfday(org.joda.time.TestDateTimeFieldType) (2 ms)</li><li>org.joda.time.TestLocalTime_Basics.testGetValue_int(org.joda.time.TestLocalTime_Basics) (1 ms)</li><li>org.joda.time.TestSerialization.testSerializedCopticChronology(org.joda.time.TestSerialization) (2 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateMidnight_nullZone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestPartial_Basics.testWithChronologyRetainFields_nullChrono(org.joda.time.TestPartial_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtCurrentTime_nullZone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeAPI(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalTime_Basics.testToDateTimeToday_nullZone(org.joda.time.TestLocalTime_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testWithUTC(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestDurationFieldType.test_seconds(org.joda.time.TestDurationFieldType) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Properties.testPropertyEquals(org.joda.time.TestLocalDateTime_Properties) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testGetFields(org.joda.time.TestLocalDateTime_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtMidnight_Zone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testWithChronologyRetainFields_sameChrono(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testToDateTimeToday_Zone(org.joda.time.TestTimeOfDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_nullLocalTime(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_LocalTime(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testGetValue(org.joda.time.TestTimeOfDay_Basics) (0 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testWithChronologyRetainFields_nullChrono(org.joda.time.TestTimeOfDay_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testToString(org.joda.time.chrono.TestCopticChronology) (1 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testWithChronologyRetainFields_Chrono(org.joda.time.TestTimeOfDay_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestLocalTime_Basics.testToDateTimeTodayDefaultZone(org.joda.time.TestLocalTime_Basics) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_Chronology1(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_nullTOD_Zone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_secondOfMinute(org.joda.time.TestDateTimeFieldType) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtMidnight_Zone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testIsSupported(org.joda.time.TestTimeOfDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestPartial_Basics.testEqualsHashCode(org.joda.time.TestPartial_Basics) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testEqualsHashCode(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestLocalTime_Basics.testSerialization(org.joda.time.TestLocalTime_Basics) (2 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testEpoch(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_millisOfDay(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateMidnight_nullZone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeStrict(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtCurrentTime(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestPartial_Basics.testGetValues(org.joda.time.TestPartial_Basics) (0 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testToDateTimeToday(org.joda.time.TestTimeOfDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_wrongChronoLocalTime_Zone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateMidnight_Zone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.convert.TestNullConverter.testSetInto_Object_Chronology2(org.joda.time.convert.TestNullConverter) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testToDateTime_RI(org.joda.time.TestYearMonth_Basics) (1 ms)</li><li>org.joda.time.TestPartial_Basics.testToDateTime_RI(org.joda.time.TestPartial_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testSampleDate(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testWithChronologyRetainFields_Chrono(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestPartial_Basics.testWithChronologyRetainFields_sameChrono(org.joda.time.TestPartial_Basics) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testGetField(org.joda.time.TestYearMonth_Basics) (1 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testToPeriod_PeriodType1(org.joda.time.TestMutableInterval_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testGetFields(org.joda.time.TestLocalDate_Basics) (3 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testDurationMonth(org.joda.time.chrono.TestCopticChronology) (1 ms)</li><li>org.joda.time.TestDurationFieldType.test_other(org.joda.time.TestDurationFieldType) (0 ms)</li><li>org.joda.time.TestMonthDay_Basics.testSerialization(org.joda.time.TestMonthDay_Basics) (21 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_other(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestYearMonthDay_Properties) (2 ms)</li><li>org.joda.time.TestYearMonth_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestYearMonth_Properties) (1 ms)</li><li>org.joda.time.convert.TestDateConverter.testGetChronology_Object_Zone(org.joda.time.convert.TestDateConverter) (0 ms)</li><li>org.joda.time.convert.TestDateConverter.testGetPartialValues(org.joda.time.convert.TestDateConverter) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDate_summer(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testGetField_int(org.joda.time.TestLocalDateTime_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_LocalTime_Zone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToLocalDateTime_wrongChronologyLocalTime(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testEqualsHashCode(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_TOD_Zone(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testFactory_Zone(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtMidnight_nullZone(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_yearOfEra(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_PeriodType_Chronology1(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToInterval(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testWithChronologyRetainFields_sameChrono(org.joda.time.TestMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateMidnight_Zone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_nullTOD(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_clockhourOfDay(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testGetFieldTypes(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestDateMidnight_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestDateMidnight_Properties) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime_RI(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_clockhourOfHalfday(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtStartOfDay(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtMidnight_nullZone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDate_winter_Zone(org.joda.time.TestLocalDateTime_Basics) (0 ms)</li><li>org.joda.time.TestMonthDay_Basics.testToLocalDate(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToInterval_nullZone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testToPeriod(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testIsSupported(org.joda.time.TestMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyToIntervalHourOfDay(org.joda.time.TestDateTime_Properties) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestYearMonthDay_Properties) (0 ms)</li><li>org.joda.time.TestMonthDay_Basics.testWithChronologyRetainFields_nullChrono(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_monthOfYear(org.joda.time.TestDateTimeFieldType) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtMidnight(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testSerialization(org.joda.time.TestLocalDateTime_Basics) (4 ms)</li><li>org.joda.time.TestDurationFieldType.test_years(org.joda.time.TestDurationFieldType) (0 ms)</li><li>org.joda.time.TestPartial_Basics.testIsSupported(org.joda.time.TestPartial_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testGetFieldTypes(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testToInterval_nullZone(org.joda.time.TestYearMonth_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testDurationFields(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testLeap_5_13(org.joda.time.chrono.TestCopticChronology) (1 ms)</li><li>org.joda.time.TestDurationFieldType.test_eras(org.joda.time.TestDurationFieldType) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToLocalDate(org.joda.time.TestLocalDateTime_Basics) (0 ms)</li><li>org.joda.time.TestDateMidnight_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestDateMidnight_Properties) (3 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_millisOfSecond(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestLocalDate_Properties.testPropertyEquals(org.joda.time.TestLocalDate_Properties) (1 ms)</li><li>org.joda.time.convert.TestDateConverter.testGetChronology_Object_Chronology(org.joda.time.convert.TestDateConverter) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateMidnight(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testGetFieldTypes(org.joda.time.TestTimeOfDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToInterval(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testIsSupported_DateTimeFieldType(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology) (1665 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_weekyear(org.joda.time.TestDateTimeFieldType) (1 ms)</li><li>org.joda.time.TestPartial_Basics.testGetFields(org.joda.time.TestPartial_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testWithZone(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestYearMonth_Properties.testPropertyEquals(org.joda.time.TestYearMonth_Properties) (1 ms)</li><li>org.joda.time.TestLocalTime_Basics.testToDateTimeToday_Zone(org.joda.time.TestLocalTime_Basics) (0 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testToLocalTime(org.joda.time.TestTimeOfDay_Basics) (0 ms)</li><li>org.joda.time.convert.TestReadableIntervalConverter.testSetIntoPeriod_Object2(org.joda.time.convert.TestReadableIntervalConverter) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToInterval_Zone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testEra(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestPartial_Basics.testGetField(org.joda.time.TestPartial_Basics) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testToInterval(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeFieldType.test_minuteOfDay(org.joda.time.TestDateTimeFieldType) (0 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testToPeriod(org.joda.time.TestMutableInterval_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeUtils.testGetIntervalChronology_RI_RI(org.joda.time.TestDateTimeUtils) (1 ms)</li><li>org.joda.time.TestLocalDate_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestLocalDate_Properties) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testEquality(org.joda.time.chrono.TestCopticChronology) (1 ms)</li><li>org.joda.time.convert.TestReadableIntervalConverter.testSetIntoInterval_Object2(org.joda.time.convert.TestReadableIntervalConverter) (1 ms)</li><li>org.joda.time.TestDateTime_Basics.testToTimeOfDay(org.joda.time.TestDateTime_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtCurrentTime_nullZone(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testTimeFields(org.joda.time.chrono.TestCopticChronology) (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.1.7
+
+</body>
+</html>

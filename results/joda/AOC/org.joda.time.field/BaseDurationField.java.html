@@ -1,0 +1,2476 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10;display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+
+.pop span { border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+</style>
+
+</head>
+<body>
+
+
+<h1>BaseDurationField.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2001-2009 Stephen Colebourne</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.joda.time.field;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serializable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.DurationField;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.DurationFieldType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * BaseDurationField provides the common behaviour for DurationField</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * implementations.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This class should generally not be used directly by API users. The</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * DurationField class should be used when different kinds of DurationField</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * objects are to be referenced.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * BaseDurationField is thread-safe and immutable, and its subclasses must</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * be as well.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Brian S O&#39;Neill</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see DecoratedDurationField</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public abstract class BaseDurationField extends DurationField implements Serializable {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Serialization lock. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = -2554245107589433218L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** A desriptive name for the field. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final DurationFieldType iType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected BaseDurationField(DurationFieldType type) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_47'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_48'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (type == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_49'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            throw new IllegalArgumentException(&#34;The type must not be null&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_51'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        iType = type;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_52'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final DurationFieldType getType() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_55'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return iType;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final String getName() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_59'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return iType.getName();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return true always</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public final boolean isSupported() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //------------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get the value of this field from the milliseconds, which is approximate</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * if this field is imprecise.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_73'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param duration  the milliseconds to query, which may be negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the value of the field, in the units of the field, which may be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int getValue(long duration) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_79'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return FieldUtils.safeToInt(getValueAsLong(duration));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get the value of this field from the milliseconds, which is approximate</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * if this field is imprecise.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param duration  the milliseconds to query, which may be negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the value of the field, in the units of the field, which may be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public long getValueAsLong(long duration) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_91'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return duration / getUnitMillis();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get the value of this field from the milliseconds relative to an</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * instant.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;If the milliseconds is positive, then the instant is treated as a</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#34;start instant&#34;. If negative, the instant is treated as an &#34;end</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * instant&#34;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;The default implementation returns</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;code&#62;Utils.safeToInt(getAsLong(millisDuration, instant))&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param duration  the milliseconds to query, which may be negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param instant  the start instant to calculate relative to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the value of the field, in the units of the field, which may be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int getValue(long duration, long instant) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_111'>1</a>
+<span>
+1. getValue : swaped the 2 last arguments in org/joda/time/field/BaseDurationField::getValueAsLong &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return FieldUtils.safeToInt(getValueAsLong(duration, instant));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get the millisecond duration of this field from its value, which is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * approximate if this field is imprecise.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param value  the value of the field, which may be negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the milliseconds that the field represents, which may be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public long getMillis(int value) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_123'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return value * getUnitMillis();  // safe</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get the millisecond duration of this field from its value, which is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * approximate if this field is imprecise.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param value  the value of the field, which may be negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the milliseconds that the field represents, which may be</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * negative</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public long getMillis(long value) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_135'/>
+135
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_135'>1</a>
+<span>
+1. getMillis : swaped the 2 last arguments in org/joda/time/field/FieldUtils::safeMultiply &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return FieldUtils.safeMultiply(value, getUnitMillis());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // Calculation API</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //------------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int getDifference(long minuendInstant, long subtrahendInstant) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_141'/>
+141
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_141'>1</a>
+<span>
+1. getDifference : swaped the 2 last arguments in org/joda/time/field/BaseDurationField::getDifferenceAsLong &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return FieldUtils.safeToInt(getDifferenceAsLong(minuendInstant, subtrahendInstant));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //------------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int compareTo(DurationField otherField) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_146'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        long otherMillis = otherField.getUnitMillis();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_147'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        long thisMillis = getUnitMillis();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // cannot do (thisMillis - otherMillis) as can overflow</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_149'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (thisMillis == otherMillis) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_150'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_152'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (thisMillis &#60; otherMillis) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_153'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_155'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get a suitable debug string.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return debug string</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_165'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return &#34;DurationField[&#34; + getName() + &#39;]&#39;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@23eed378_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@23eed378_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getValue<br/><b>Killed by : </b>org.joda.time.field.TestPreciseDurationField.test_getValue_long_long(org.joda.time.field.TestPreciseDurationField)</span></span> swaped the 2 last arguments in org/joda/time/field/BaseDurationField::getValueAsLong &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@23eed378_135'>135</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_135'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getMillis<br/><b>Killed by : </b>none</span></span> swaped the 2 last arguments in org/joda/time/field/FieldUtils::safeMultiply &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@23eed378_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@23eed378_141'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDifference<br/><b>Killed by : </b>org.joda.time.field.TestPreciseDurationField.test_getDifference_long_int(org.joda.time.field.TestPreciseDurationField)</span></span> swaped the 2 last arguments in org/joda/time/field/BaseDurationField::getDifferenceAsLong &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ARGUMENT_ORDER_CHANGE_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_RI_RI_PeriodType4(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_PeriodType_Chronology1(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long1(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_LD_LD_toFeb_endOfMonth3(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testEqualsHashCode(org.joda.time.TestMutablePeriod_Basics) (0 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testToPeriod_PeriodType2(org.joda.time.TestMutableInterval_Basics) (0 ms)</li><li>org.joda.time.tz.TestBuilder.testReverseTransitions(org.joda.time.tz.TestBuilder) (24 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_RI_RI_toFeb_endOfMonth2(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testConstructor_RP_RI4(org.joda.time.TestMutableInterval_Constructors) (0 ms)</li><li>org.joda.time.TestSeconds.testFactory_secondsIn_RInterval(org.joda.time.TestSeconds) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testToPeriod_PeriodType1(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testToDurationFrom(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestDuration_Basics.testToPeriodTo(org.joda.time.TestDuration_Basics) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_Chronology3(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_periodType_monthsWeeks(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_PeriodType3(org.joda.time.TestPeriod_Constructors) (3 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_RI_RI_toFeb_exactMonths(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RP_RP_PeriodType2(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestSeconds.testFactory_secondsBetween_RInstant(org.joda.time.TestSeconds) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long1(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_PeriodType1(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMinutes.testFactory_minutesIn_RInterval(org.joda.time.TestMinutes) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_LD_LD_toFeb_standardYear(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RI4(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_RInterval3(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestDuration_Basics.testToPeriodTo_PeriodType(org.joda.time.TestDuration_Basics) (0 ms)</li><li>org.joda.time.field.TestOffsetDateTimeField.test_getDifference_long_long(org.joda.time.field.TestOffsetDateTimeField) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testToPeriod_PeriodType2(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testToDurationFrom(org.joda.time.TestMutablePeriod_Basics) (0 ms)</li><li>org.joda.time.TestDuration_Basics.testToPeriodFrom(org.joda.time.TestDuration_Basics) (3 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_RD2(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_PeriodType2(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_RInterval2(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_Chronology2(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_periodType_weekDay1(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long2(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testCutoverAddWeeks(org.joda.time.chrono.TestGJChronology) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_PeriodType3(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSePeriodBeforeEnd_RI2(org.joda.time.TestMutableInterval_Updates) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_Chronology2(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testWithPeriodType1(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_PeriodType_Chronology2(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_Object_Chronology2(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestHours.testFactory_hoursBetween_RInstant(org.joda.time.TestHours) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_PeriodType_Chronology4(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long_long_NoHours(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testToMutablePeriod(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_PeriodType_Chronology2(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long_long_NoWeeks(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testCutoverAddDays(org.joda.time.chrono.TestGJChronology) (2 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_weekDay1(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyGetDifferenceHourOfDay(org.joda.time.TestDateTime_Properties) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_long2(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_long_long_min(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testClone(org.joda.time.TestMutablePeriod_Basics) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_8ints2(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testDurationMonth(org.joda.time.chrono.TestEthiopicChronology) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_Chronology1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RI_PeriodType4(org.joda.time.TestPeriod_Constructors) (18 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_RI_RI_toFeb_standardYear(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestDuration_Basics.testToPeriod_PeriodType_Chronology(org.joda.time.TestDuration_Basics) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_negative(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_LD_LD_toFeb_endOfMonth1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestDays.testFactory_daysBetween_RPartial_LocalDate(org.joda.time.TestDays) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long1(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.field.TestBaseDateTimeField.test_getDifference_long_long(org.joda.time.field.TestBaseDateTimeField) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_RI_RD_PeriodType1(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_Object_Chronology1(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_PeriodType_Chronology1(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_long_Chronology2(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long2(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testToPeriod_PeriodType3(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long_long_NoDays(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_PeriodType4(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_PeriodType3(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_weekDay2(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RI7(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RI6(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long_long1(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RD_RI1(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.field.TestPreciseDurationField.test_getValue_long_long(org.joda.time.field.TestPreciseDurationField) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long_long_NoMonths(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RI3(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RP_RP_PeriodType2Local(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RI2(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_LD_LD_toFeb_endOfMonth2(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestDays.testFactory_daysBetween_RPartial_MonthDay(org.joda.time.TestDays) (2 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.testPeriod(org.joda.time.TestDateTimeZoneCutover) (5 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_periodType_weekDay2(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testWithPeriodType2(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_RI_RI1(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.tz.TestBuilder.testSerialization(org.joda.time.tz.TestBuilder) (36 ms)</li><li>org.joda.time.field.TestPreciseDurationDateTimeField.test_getDifference_long_long(org.joda.time.field.TestPreciseDurationDateTimeField) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RP_RP2Local(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestWeeks.testFactory_weeksBetween_RPartial(org.joda.time.TestWeeks) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_long_Chronology3(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long2(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testYearEndAddDays(org.joda.time.chrono.TestGJChronology) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testToMutablePeriod(org.joda.time.TestMutablePeriod_Basics) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_RD1(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestWeeks.testFactory_weeksBetween_RInstant(org.joda.time.TestWeeks) (0 ms)</li><li>org.joda.time.TestDuration_Basics.testToPeriod_fixedZone(org.joda.time.TestDuration_Basics) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_RP1(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_long1(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_PeriodType_Chronology2(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_PeriodType_Chronology3(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_PeriodType_Chronology4(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_PeriodType_Chronology1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_periodType_yearMonthWeekDay(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testDurationYear(org.joda.time.chrono.TestEthiopicChronology) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_PeriodType1(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RI_PeriodType2(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_yearMonthDay(org.joda.time.TestPeriod_Basics) (3 ms)</li><li>org.joda.time.TestDuration_Basics.testToPeriod(org.joda.time.TestDuration_Basics) (0 ms)</li><li>org.joda.time.field.TestPreciseDateTimeField.test_getDifference_long_long(org.joda.time.field.TestPreciseDateTimeField) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long2(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_Chronology3(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_fullNegative(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.tz.TestCompiler.testCompile(org.joda.time.tz.TestCompiler) (65 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RD1(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_RInterval1(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_Chronology1(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSePeriodAfterStart_RI2(org.joda.time.TestMutableInterval_Updates) (0 ms)</li><li>org.joda.time.field.TestUnsupportedDateTimeField.testDelegatedMethods(org.joda.time.field.TestUnsupportedDateTimeField) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_LD_LD_toFeb_leapYear(org.joda.time.TestPeriod_Constructors) (7 ms)</li><li>org.joda.time.field.TestPreciseDurationField.test_getMillis_long(org.joda.time.field.TestPreciseDurationField) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_periodType_yearMonth3(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestBaseSingleFieldPeriod.testFactory_between_RInstant(org.joda.time.TestBaseSingleFieldPeriod) (6 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_PeriodType2(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_RI_RI1(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RI1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testConstructor_RI_RP4(org.joda.time.TestMutableInterval_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_PeriodType4(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestSeconds.testFactory_secondsBetween_RPartial(org.joda.time.TestSeconds) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long3(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RI_PeriodType3(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestHours.testFactory_hoursBetween_RPartial(org.joda.time.TestHours) (0 ms)</li><li>org.joda.time.tz.TestBuilder.testID(org.joda.time.tz.TestBuilder) (8 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_RI_RI_PeriodType3(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long_long_NoYears(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long_long_NoSeconds(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testWithPeriodType4(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_Chronology1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RI_PeriodType1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_RI_RI_toMar_endOfMonth1(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_yearMonthWeekDay(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.TestWeeks.testFactory_weeksIn_RInterval(org.joda.time.TestWeeks) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RI_RD_PeriodType1(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testToString(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_RP2(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_RD2(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_RI_RI_toMar_endOfMonth2(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_LD_LD_toMar_endOfMonth2(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_PeriodType1(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_RI_RI2(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.tz.TestBuilder.testForwardTransitions(org.joda.time.tz.TestBuilder) (24 ms)</li><li>org.joda.time.TestPeriod_Basics.testToPeriod(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_LD_LD_toMar_endOfMonth1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_RI_RD1(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testToDurationTo(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testToPeriod(org.joda.time.TestMutablePeriod_Basics) (0 ms)</li><li>org.joda.time.TestDays.testFactory_daysBetween_RPartial_YearMonth(org.joda.time.TestDays) (2 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSetPeriodAfterStart_RI1(org.joda.time.TestMutableInterval_Updates) (0 ms)</li><li>org.joda.time.TestDuration_Basics.testToPeriod_PeriodType(org.joda.time.TestDuration_Basics) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long_long_NoMillis(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_Chronology2(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestDuration_Basics.testToPeriodFrom_PeriodType(org.joda.time.TestDuration_Basics) (0 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testToPeriod_PeriodType1(org.joda.time.TestMutableInterval_Basics) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_periodType_yearMonthDay(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testDurationMonth(org.joda.time.chrono.TestCopticChronology) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_Chronology1(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestHours.testFactory_hoursIn_RInterval(org.joda.time.TestHours) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_RInterval1(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_PeriodType_Chronology3(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestDuration_Basics.testToPeriod_Chronology(org.joda.time.TestDuration_Basics) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_PeriodType_Chronology1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RP_RP_PeriodType1(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RD_RI_PeriodType1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RP_RI4(org.joda.time.TestInterval_Constructors) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_LD_LD_toFeb_exactMonths(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long2(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_RI_RI3(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RP_RP1(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_RInterval4(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testToPeriod(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testCopy(org.joda.time.TestMutablePeriod_Basics) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_RI_RI_PeriodType1(org.joda.time.TestMutablePeriod_Constructors) (2 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_RI_RI_toFeb_leapYear(org.joda.time.TestPeriod_Constructors) (3 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_RP_RP2(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long_long2(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_RI_RI2(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_PeriodType1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_RD1(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_JustAfterLastEverOverlap(org.joda.time.TestDateTimeZoneCutover) (8 ms)</li><li>org.joda.time.TestDays.testFactory_daysBetween_RInstant(org.joda.time.TestDays) (1 ms)</li><li>org.joda.time.convert.TestReadablePeriodConverter.testGetPeriodType_Object(org.joda.time.convert.TestReadablePeriodConverter) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_RI_RI_toFeb_endOfMonth1(org.joda.time.TestPeriod_Constructors) (3 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_8ints1(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_periodType_weekDay3(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestMinutes.testFactory_minutesBetween_RPartial(org.joda.time.TestMinutes) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_trickyDifferences_RI_RI_toFeb_endOfMonth3(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RI_RP4(org.joda.time.TestInterval_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_Chronology2(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_long3(org.joda.time.TestMutablePeriod_Updates) (7 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_PeriodType_Chronology2(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testToString(org.joda.time.TestMutablePeriod_Basics) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_RP3(org.joda.time.TestMutablePeriod_Updates) (0 ms)</li><li>org.joda.time.field.TestPreciseDurationField.test_getDifference_long_int(org.joda.time.field.TestPreciseDurationField) (0 ms)</li><li>org.joda.time.TestBaseSingleFieldPeriod.testFactory_between_RPartial(org.joda.time.TestBaseSingleFieldPeriod) (11 ms)</li><li>org.joda.time.TestDays.testFactory_daysIn_RInterval(org.joda.time.TestDays) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_RI_RI4(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.tz.TestCompiler.testDateTimeZoneBuilder(org.joda.time.tz.TestCompiler) (2 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSetPeriodBeforeEnd_RI1(org.joda.time.TestMutableInterval_Updates) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testAdd_long_Chronology1(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_PeriodType3(org.joda.time.TestMutablePeriod_Constructors) (9 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long3(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testSerialization(org.joda.time.TestMutablePeriod_Basics) (6 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_fixedZone(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testSetPeriod_long_long_NoMinutes(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.convert.TestReadableDurationConverter.testSetInto_Object(org.joda.time.convert.TestReadableDurationConverter) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testSerialization(org.joda.time.TestPeriod_Basics) (2 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_RI_RI_PeriodType2(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestMinutes.testFactory_minutesBetween_RInstant(org.joda.time.TestMinutes) (0 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testToPeriod(org.joda.time.TestMutableInterval_Basics) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testEqualsHashCode(org.joda.time.TestPeriod_Basics) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.1.7
+
+</body>
+</html>

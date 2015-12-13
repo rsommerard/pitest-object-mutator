@@ -1,0 +1,6470 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10;display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+
+.pop span { border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+</style>
+
+</head>
+<body>
+
+
+<h1>PeriodFormat.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2001-2014 Stephen Colebourne</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.joda.time.format;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Writer;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Enumeration;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Locale;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.ResourceBundle;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.ConcurrentHashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.concurrent.ConcurrentMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.ReadWritablePeriod;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.ReadablePeriod;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Factory that creates instances of PeriodFormatter.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Period formatting is performed by the {@link PeriodFormatter} class.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Three classes provide factory methods to create formatters, and this is one.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The others are {@link ISOPeriodFormat} and {@link PeriodFormatterBuilder}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * PeriodFormat is thread-safe and immutable, and the formatters it returns</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * are as well.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Brian S O&#39;Neill</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see ISOPeriodFormat</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see PeriodFormatterBuilder</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class PeriodFormat {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The resource bundle name.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final String BUNDLE_NAME = &#34;org.joda.time.format.messages&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The created formatters.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    private static final ConcurrentMap&#60;Locale, PeriodFormatter&#62; FORMATTERS = new ConcurrentHashMap&#60;Locale, PeriodFormatter&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 1.1 (previously private)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected PeriodFormat() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_61'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_62'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the default formatter that outputs words in English.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This calls {@link #wordBased(Locale)} using a locale of {@code ENGLISH}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the formatter, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static PeriodFormatter getDefault() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return wordBased(Locale.ENGLISH);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a word based formatter for the JDK default locale.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This calls {@link #wordBased(Locale)} using the {@link Locale#getDefault() default locale}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the formatter, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static PeriodFormatter wordBased() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_85'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return wordBased(Locale.getDefault());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Returns a word based formatter for the specified locale.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The words are configured in a resource bundle text file -</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@code org.joda.time.format.messages}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This can be added to via the normal classpath resource bundle mechanisms.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * You can add your own translation by creating messages_&#60;locale&#62;.properties file</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * and adding it to the {@code org.joda.time.format.messages} path.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Simple example (1 -&#62; singular suffix, not 1 -&#62; plural suffix):</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.space=\ </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.comma=,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.commandand=,and </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.commaspaceand=, and </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.commaspace=, </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.spaceandspace=\ and </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.year=\ year</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.years=\ years</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.month=\ month</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.months=\ months</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.week=\ week</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.weeks=\ weeks</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.day=\ day</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.days=\ days</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.hour=\ hour</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.hours=\ hours</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.minute=\ minute</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.minutes=\ minutes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.second=\ second</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.seconds=\ seconds</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.millisecond=\ millisecond</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.milliseconds=\ milliseconds</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Some languages contain more than two suffixes. You can use regular expressions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * for them. Here&#39;s an example using regular expression for English:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.space=\ </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.comma=,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_132'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.commandand=,and </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.commaspaceand=, and </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.commaspace=, </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.spaceandspace=\ and </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.regex.separator=%</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.years.regex=1$%.*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.years.list=\ year%\ years</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.months.regex=1$%.*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.months.list=\ month%\ months</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.weeks.regex=1$%.*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.weeks.list=\ week%\ weeks</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.days.regex=1$%.*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.days.list=\ day%\ days</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.hours.regex=1$%.*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.hours.list=\ hour%\ hours</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.minutes.regex=1$%.*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.minutes.list=\ minute%\ minutes</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.seconds.regex=1$%.*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.seconds.list=\ second%\ seconds</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.milliseconds.regex=1$%.*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.milliseconds.list=\ millisecond%\ milliseconds</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * You can mix both approaches. Here&#39;s example for Polish (</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#34;1 year, 2 years, 5 years, 12 years, 15 years, 21 years, 22 years, 25 years&#34;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * translates to</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#34;1 rok, 2 lata, 5 lat, 12 lat, 15 lat, 21 lat, 22 lata, 25 lat&#34;). Notice that</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.day and PeriodFormat.days is used for day suffixes as there is no</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * need for regular expressions:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.space=\ </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.comma=,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.commandand=,i </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.commaspaceand=, i </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.commaspace=, </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.spaceandspace=\ i </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.regex.separator=%</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_171'/>
+171
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_171'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.years.regex=^1$%[0-9]*(?&#38;lt;!1)[2-4]$%[0-9]*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.years.list=\ rok%\ lata%\ lat</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.months.regex=^1$%[0-9]*(?&#38;lt;!1)[2-4]$%[0-9]*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.months.list=\ miesi\u0105c%\ miesi\u0105ce%\ miesi\u0119cy</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.weeks.regex=^1$%[0-9]*(?&#38;lt;!1)[2-4]$%[0-9]*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.weeks.list=\ tydzie\u0144%\ tygodnie%\ tygodni</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.day=\ dzie\u0144</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.days=\ dni</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.hours.regex=^1$%[0-9]*(?&#38;lt;!1)[2-4]$%[0-9]*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.hours.list=\ godzina%\ godziny%\ godzin</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.minutes.regex=^1$%[0-9]*(?&#38;lt;!1)[2-4]$%[0-9]*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.minutes.list=\ minuta%\ minuty%\ minut</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.seconds.regex=^1$%[0-9]*(?&#38;lt;!1)[2-4]$%[0-9]*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.seconds.list=\ sekunda%\ sekundy%\ sekund</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.milliseconds.regex=^1$%[0-9]*(?&#38;lt;!1)[2-4]$%[0-9]*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.milliseconds.list=\ milisekunda%\ milisekundy%\ milisekund</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_189'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_190'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Each PeriodFormat.&#38;lt;duration_field_type&#38;gt;.regex property stands for an array of</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * regular expressions and is followed by a property</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_192'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.&#38;lt;duration_field_type&#38;gt;.list holding an array of suffixes.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * PeriodFormat.regex.separator is used for splitting. See</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * {@link PeriodFormatterBuilder#appendSuffix(String[], String[])} for details.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Available languages are English, Danish, Dutch, French, German, Japanese,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Polish, Portuguese and Spanish.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the formatter, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.0, regex since 2.5</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static PeriodFormatter wordBased(Locale locale) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_203'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        PeriodFormatter pf = FORMATTERS.get(locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_204'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        if (pf == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_205'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            DynamicWordBased dynamic = new DynamicWordBased(buildWordBased(locale));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_206'/>
+206
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_206'>1</a>
+<span>
+1. wordBased : removed last argument in org/joda/time/format/PeriodFormatter::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            pf = new PeriodFormatter(dynamic, dynamic, locale, null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_207'/>
+207
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_207'>1</a>
+<span>
+1. wordBased : removed last argument in java/util/concurrent/ConcurrentMap::putIfAbsent &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            PeriodFormatter existing = FORMATTERS.putIfAbsent(locale, pf);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_208'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (existing != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_209'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                pf = existing;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_212'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return pf;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static PeriodFormatter buildWordBased(Locale locale) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_217'/>
+217
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_217'>1</a>
+<span>
+1. buildWordBased : removed last argument in java/util/ResourceBundle::getBundle &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        ResourceBundle b = ResourceBundle.getBundle(BUNDLE_NAME, locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_218'/>
+218
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_218'>1</a>
+<span>
+1. buildWordBased : removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (containsKey(b, &#34;PeriodFormat.regex.separator&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_219'/>
+219
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_219'>1</a>
+<span>
+1. buildWordBased : removed last argument in org/joda/time/format/PeriodFormat::buildRegExFormatter &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return buildRegExFormatter(b, locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_221'/>
+221
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_221'>1</a>
+<span>
+1. buildWordBased : removed last argument in org/joda/time/format/PeriodFormat::buildNonRegExFormatter &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return buildNonRegExFormatter(b, locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static PeriodFormatter buildRegExFormatter(ResourceBundle b, Locale locale) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_226'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String[] variants = retrieveVariants(b);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_227'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String regExSeparator = b.getString(&#34;PeriodFormat.regex.separator&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_229'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        PeriodFormatterBuilder builder = new PeriodFormatterBuilder();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_230'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        builder.appendYears();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_231'/>
+231
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_231'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (containsKey(b, &#34;PeriodFormat.years.regex&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_232'/>
+232
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_232'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            builder.appendSuffix(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_233'/>
+233
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_233'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                b.getString(&#34;PeriodFormat.years.regex&#34;).split(regExSeparator),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_234'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                b.getString(&#34;PeriodFormat.years.list&#34;).split(regExSeparator));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_236'/>
+236
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_236'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            builder.appendSuffix(b.getString(&#34;PeriodFormat.year&#34;), b.getString(&#34;PeriodFormat.years&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_239'/>
+239
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_239'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        builder.appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_240'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        builder.appendMonths();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_241'/>
+241
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_241'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (containsKey(b, &#34;PeriodFormat.months.regex&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_242'/>
+242
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_242'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            builder.appendSuffix(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_243'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.months.regex&#34;).split(regExSeparator),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_244'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.months.list&#34;).split(regExSeparator));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_246'/>
+246
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_246'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            builder.appendSuffix(b.getString(&#34;PeriodFormat.month&#34;), b.getString(&#34;PeriodFormat.months&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }        </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_249'/>
+249
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_249'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        builder.appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_250'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        builder.appendWeeks();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_251'/>
+251
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_251'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (containsKey(b, &#34;PeriodFormat.weeks.regex&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_252'/>
+252
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_252'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            builder.appendSuffix(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_253'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.weeks.regex&#34;).split(regExSeparator),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_254'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.weeks.list&#34;).split(regExSeparator));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_256'/>
+256
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_256'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            builder.appendSuffix(b.getString(&#34;PeriodFormat.week&#34;), b.getString(&#34;PeriodFormat.weeks&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_257'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }            </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_259'/>
+259
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_259'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        builder.appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_260'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        builder.appendDays();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_261'/>
+261
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_261'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (containsKey(b, &#34;PeriodFormat.days.regex&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_262'/>
+262
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_262'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            builder.appendSuffix(</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_263'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.days.regex&#34;).split(regExSeparator),</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_264'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.days.list&#34;).split(regExSeparator));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_265'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_266'/>
+266
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_266'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            builder.appendSuffix(b.getString(&#34;PeriodFormat.day&#34;), b.getString(&#34;PeriodFormat.days&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_267'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }            </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_268'/>
+268
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_268'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_269'/>
+269
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_269'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        builder.appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_270'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        builder.appendHours();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_271'/>
+271
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_271'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (containsKey(b, &#34;PeriodFormat.hours.regex&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_272'/>
+272
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_272'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            builder.appendSuffix(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_273'/>
+273
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_273'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.hours.regex&#34;).split(regExSeparator),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_274'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.hours.list&#34;).split(regExSeparator));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_275'/>
+275
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_275'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_276'/>
+276
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_276'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            builder.appendSuffix(b.getString(&#34;PeriodFormat.hour&#34;), b.getString(&#34;PeriodFormat.hours&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_277'/>
+277
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_277'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }            </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_278'/>
+278
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_278'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_279'/>
+279
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_279'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        builder.appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_280'/>
+280
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_280'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        builder.appendMinutes();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_281'/>
+281
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_281'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (containsKey(b, &#34;PeriodFormat.minutes.regex&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_282'/>
+282
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_282'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            builder.appendSuffix(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_283'/>
+283
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_283'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.minutes.regex&#34;).split(regExSeparator),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_284'/>
+284
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_284'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.minutes.list&#34;).split(regExSeparator));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_285'/>
+285
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_285'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_286'/>
+286
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_286'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            builder.appendSuffix(b.getString(&#34;PeriodFormat.minute&#34;), b.getString(&#34;PeriodFormat.minutes&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_287'/>
+287
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_287'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_288'/>
+288
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_288'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_289'/>
+289
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_289'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        builder.appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_290'/>
+290
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_290'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        builder.appendSeconds();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_291'/>
+291
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_291'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (containsKey(b, &#34;PeriodFormat.seconds.regex&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_292'/>
+292
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_292'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            builder.appendSuffix(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_293'/>
+293
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_293'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.seconds.regex&#34;).split(regExSeparator),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_294'/>
+294
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_294'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.seconds.list&#34;).split(regExSeparator));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_295'/>
+295
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_295'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_296'/>
+296
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_296'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            builder.appendSuffix(b.getString(&#34;PeriodFormat.second&#34;), b.getString(&#34;PeriodFormat.seconds&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_297'/>
+297
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_297'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_298'/>
+298
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_298'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_299'/>
+299
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_299'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        builder.appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_300'/>
+300
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_300'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        builder.appendMillis();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_301'/>
+301
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_301'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (containsKey(b, &#34;PeriodFormat.milliseconds.regex&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_302'/>
+302
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_302'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            builder.appendSuffix(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_303'/>
+303
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_303'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.milliseconds.regex&#34;).split(regExSeparator),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_304'/>
+304
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_304'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    b.getString(&#34;PeriodFormat.milliseconds.list&#34;).split(regExSeparator));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_305'/>
+305
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_305'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_306'/>
+306
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_306'>1</a>
+<span>
+1. buildRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            builder.appendSuffix(b.getString(&#34;PeriodFormat.millisecond&#34;), b.getString(&#34;PeriodFormat.milliseconds&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_307'/>
+307
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_307'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_308'/>
+308
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_308'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return builder.toFormatter().withLocale(locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_309'/>
+309
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_309'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_310'/>
+310
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_310'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_311'/>
+311
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_311'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static PeriodFormatter buildNonRegExFormatter(ResourceBundle b, Locale locale) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_312'/>
+312
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_312'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String[] variants = retrieveVariants(b);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_313'/>
+313
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_313'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return new PeriodFormatterBuilder()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_314'/>
+314
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_314'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            .appendYears()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_315'/>
+315
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_315'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSuffix(b.getString(&#34;PeriodFormat.year&#34;), b.getString(&#34;PeriodFormat.years&#34;))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_316'/>
+316
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_316'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_317'/>
+317
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_317'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            .appendMonths()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_318'/>
+318
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_318'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSuffix(b.getString(&#34;PeriodFormat.month&#34;), b.getString(&#34;PeriodFormat.months&#34;))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_319'/>
+319
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_319'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_320'/>
+320
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_320'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            .appendWeeks()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_321'/>
+321
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_321'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSuffix(b.getString(&#34;PeriodFormat.week&#34;), b.getString(&#34;PeriodFormat.weeks&#34;))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_322'/>
+322
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_322'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_323'/>
+323
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_323'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            .appendDays()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_324'/>
+324
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_324'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSuffix(b.getString(&#34;PeriodFormat.day&#34;), b.getString(&#34;PeriodFormat.days&#34;))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_325'/>
+325
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_325'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_326'/>
+326
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_326'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            .appendHours()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_327'/>
+327
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_327'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSuffix(b.getString(&#34;PeriodFormat.hour&#34;), b.getString(&#34;PeriodFormat.hours&#34;))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_328'/>
+328
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_328'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_329'/>
+329
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_329'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            .appendMinutes()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_330'/>
+330
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_330'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSuffix(b.getString(&#34;PeriodFormat.minute&#34;), b.getString(&#34;PeriodFormat.minutes&#34;))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_331'/>
+331
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_331'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_332'/>
+332
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_332'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            .appendSeconds()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_333'/>
+333
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_333'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSuffix(b.getString(&#34;PeriodFormat.second&#34;), b.getString(&#34;PeriodFormat.seconds&#34;))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_334'/>
+334
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_334'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSeparator(b.getString(&#34;PeriodFormat.commaspace&#34;), b.getString(&#34;PeriodFormat.spaceandspace&#34;), variants)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_335'/>
+335
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_335'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            .appendMillis()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_336'/>
+336
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_336'>1</a>
+<span>
+1. buildNonRegExFormatter : removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            .appendSuffix(b.getString(&#34;PeriodFormat.millisecond&#34;), b.getString(&#34;PeriodFormat.milliseconds&#34;))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_337'/>
+337
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_337'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            .toFormatter().withLocale(locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_338'/>
+338
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_338'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_339'/>
+339
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_339'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_340'/>
+340
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_340'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static String[] retrieveVariants(ResourceBundle b) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_341'/>
+341
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_341'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return new String[] { b.getString(&#34;PeriodFormat.space&#34;), b.getString(&#34;PeriodFormat.comma&#34;),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_342'/>
+342
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_342'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                b.getString(&#34;PeriodFormat.commandand&#34;), b.getString(&#34;PeriodFormat.commaspaceand&#34;) };</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_343'/>
+343
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_343'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_344'/>
+344
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_344'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_345'/>
+345
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_345'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // simulate ResourceBundle.containsKey()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_346'/>
+346
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_346'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static boolean containsKey(ResourceBundle bundle, String key) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_347'/>
+347
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_347'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        for (Enumeration&#60;String&#62; en = bundle.getKeys(); en.hasMoreElements(); ) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_348'/>
+348
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_348'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (en.nextElement().equals(key)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_349'/>
+349
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_349'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_350'/>
+350
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_350'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_351'/>
+351
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_351'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_352'/>
+352
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_352'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_353'/>
+353
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_353'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_354'/>
+354
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_354'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_355'/>
+355
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_355'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_356'/>
+356
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_356'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_357'/>
+357
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_357'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Printer/parser that reacts to the locale and changes the word-based</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_358'/>
+358
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_358'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * pattern if necessary.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_359'/>
+359
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_359'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_360'/>
+360
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_360'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static class DynamicWordBased</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_361'/>
+361
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_361'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            implements PeriodPrinter, PeriodParser {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_362'/>
+362
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_362'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_363'/>
+363
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_363'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        /** The formatter with the locale selected at construction time. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_364'/>
+364
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_364'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final PeriodFormatter iFormatter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_365'/>
+365
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_365'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_366'/>
+366
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_366'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        DynamicWordBased(PeriodFormatter formatter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_367'/>
+367
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_367'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            iFormatter = formatter;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_368'/>
+368
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_368'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_369'/>
+369
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_369'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_370'/>
+370
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_370'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public int countFieldsToPrint(ReadablePeriod period, int stopAt, Locale locale) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_371'/>
+371
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_371'>1</a>
+<span>
+1. countFieldsToPrint : removed last argument in org/joda/time/format/PeriodPrinter::countFieldsToPrint &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            return getPrinter(locale).countFieldsToPrint(period, stopAt, locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_372'/>
+372
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_372'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_373'/>
+373
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_373'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_374'/>
+374
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_374'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public int calculatePrintedLength(ReadablePeriod period, Locale locale) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_375'/>
+375
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_375'>1</a>
+<span>
+1. calculatePrintedLength : removed last argument in org/joda/time/format/PeriodPrinter::calculatePrintedLength &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return getPrinter(locale).calculatePrintedLength(period, locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_376'/>
+376
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_376'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_377'/>
+377
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_377'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_378'/>
+378
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_378'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void printTo(StringBuffer buf, ReadablePeriod period, Locale locale) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_379'/>
+379
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_379'>1</a>
+<span>
+1. printTo : removed last argument in org/joda/time/format/PeriodPrinter::printTo &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            getPrinter(locale).printTo(buf, period, locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_380'/>
+380
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_380'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_381'/>
+381
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_381'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_382'/>
+382
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_382'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public void printTo(Writer out, ReadablePeriod period, Locale locale) throws IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_383'/>
+383
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_383'>1</a>
+<span>
+1. printTo : removed last argument in org/joda/time/format/PeriodPrinter::printTo &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            getPrinter(locale).printTo(out, period, locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_384'/>
+384
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_384'></a>
+<span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_385'/>
+385
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_385'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_386'/>
+386
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_386'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private PeriodPrinter getPrinter(Locale locale) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_387'/>
+387
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_387'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (locale != null &#38;&#38; !locale.equals(iFormatter.getLocale())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_388'/>
+388
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_388'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return wordBased(locale).getPrinter();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_389'/>
+389
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_389'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_390'/>
+390
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_390'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return iFormatter.getPrinter();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_391'/>
+391
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_391'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_392'/>
+392
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_392'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_393'/>
+393
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_393'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public int parseInto(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_394'/>
+394
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_394'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                ReadWritablePeriod period, String periodStr,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_395'/>
+395
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_395'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                int position, Locale locale) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_396'/>
+396
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_396'>1</a>
+<span>
+1. parseInto : removed last argument in org/joda/time/format/PeriodParser::parseInto &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return getParser(locale).parseInto(period, periodStr, position, locale);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_397'/>
+397
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_397'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_398'/>
+398
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_398'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_399'/>
+399
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_399'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private PeriodParser getParser(Locale locale) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_400'/>
+400
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_400'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            if (locale != null &#38;&#38; !locale.equals(iFormatter.getLocale())) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_401'/>
+401
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_401'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                return wordBased(locale).getParser();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_402'/>
+402
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_402'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_403'/>
+403
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_403'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            return iFormatter.getParser();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_404'/>
+404
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_404'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_405'/>
+405
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_405'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_406'/>
+406
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_406'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@65e00f6a_407'/>
+407
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_407'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_206'>206</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_206'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>wordBased<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatter::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_207'>207</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_207'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>wordBased<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in java/util/concurrent/ConcurrentMap::putIfAbsent &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_217'>217</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_217'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildWordBased<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in java/util/ResourceBundle::getBundle &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_218'>218</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_218'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildWordBased<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_219'>219</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_219'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildWordBased<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::buildRegExFormatter &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_221'>221</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_221'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildWordBased<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::buildNonRegExFormatter &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_231'>231</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_231'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_232'>232</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_232'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_236'>236</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_236'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>none</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_239'>239</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_239'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_241'>241</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_241'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_242'>242</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_242'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_246'>246</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_246'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>none</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_249'>249</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_249'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_251'>251</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_251'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_252'>252</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_252'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_256'>256</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_256'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>none</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_259'>259</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_259'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_261'>261</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_261'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_262'>262</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_262'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>none</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_266'>266</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_266'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_269'>269</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_269'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_271'>271</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_271'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_272'>272</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_272'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_276'>276</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_276'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>none</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_279'>279</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_279'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_281'>281</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_281'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_282'>282</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_282'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_286'>286</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_286'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>none</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_289'>289</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_289'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_291'>291</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_291'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_292'>292</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_292'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_296'>296</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_296'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>none</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_299'>299</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_299'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_301'>301</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_301'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormat::containsKey &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_302'>302</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_302'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_306'>306</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_306'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildRegExFormatter<br/><b>Killed by : </b>none</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_315'>315</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_315'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_316'>316</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_316'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_318'>318</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_318'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_319'>319</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_319'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_321'>321</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_321'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_322'>322</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_322'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_324'>324</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_324'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_325'>325</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_325'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_327'>327</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_327'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_328'>328</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_328'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_330'>330</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_330'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_331'>331</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_331'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_333'>333</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_333'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_334'>334</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_334'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSeparator &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_336'>336</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_336'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>buildNonRegExFormatter<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodFormatterBuilder::appendSuffix &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_371'>371</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_371'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>countFieldsToPrint<br/><b>Killed by : </b>none</span></span> removed last argument in org/joda/time/format/PeriodPrinter::countFieldsToPrint &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_375'>375</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_375'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>calculatePrintedLength<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_ja_formatMultiple(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodPrinter::calculatePrintedLength &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_379'>379</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_379'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>printTo<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_ja_formatMultiple(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodPrinter::printTo &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_383'>383</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_383'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>printTo<br/><b>Killed by : </b>none</span></span> removed last argument in org/joda/time/format/PeriodPrinter::printTo &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@65e00f6a_396'>396</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@65e00f6a_396'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parseInto<br/><b>Killed by : </b>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_checkRedundantSeparator(org.joda.time.format.TestPeriodFormat)</span></span> removed last argument in org/joda/time/format/PeriodParser::parseInto &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>ARGUMENT_NUMBER_DECREASE_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.joda.time.format.TestPeriodFormat.test_wordBased_pt_parseTwoFields(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormatParsing.testParseStandard1(org.joda.time.format.TestPeriodFormatParsing) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_de_parseOneField(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_fr_formatTwoFields(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_ja_parseOneField(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_ja_parseTwoFields(org.joda.time.format.TestPeriodFormat) (4 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_es_FormatOneField(org.joda.time.format.TestPeriodFormat) (3 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_getDefault_formatTwoFields(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_nl_formatStandard(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_nl_formatTwoFields(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_getDefault_parseOneField(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_ja_formatMultiple(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_getDefault_checkRedundantSeparator(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_en_withLocale_pt(org.joda.time.format.TestPeriodFormat) (2 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_nl_parseOneField(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_parseTwoFields(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_ja_checkRedundantSeparator(org.joda.time.format.TestPeriodFormat) (2 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_formatTwoFields(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pt_parseOneField(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_en_from_nl(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_da_formatMultiple(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_de_formatStandard(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_formatStandard(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_nl_FormatOneField(org.joda.time.format.TestPeriodFormat) (3 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_from_fr(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_de_formatTwoFields(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_da_cached(org.joda.time.format.TestPeriodFormat) (4 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_regEx(org.joda.time.format.TestPeriodFormat) (14 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_fr_from_de(org.joda.time.format.TestPeriodFormat) (2 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_ja_cached(org.joda.time.format.TestPeriodFormat) (3 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_getDefault_FormatOneField(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testToString_PeriodFormatter(org.joda.time.TestPeriod_Basics) (7 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_es_formatTwoFields(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_de_parseTwoFields(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_FormatOneField(org.joda.time.format.TestPeriodFormat) (7 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_fr_formatStandard(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_fr_from_nl(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pt_formatStandard(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_parseOneField(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_fr_FormatOneField(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_da_formatSinglular(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_nl_parseTwoFields(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_de_FormatOneField(org.joda.time.format.TestPeriodFormat) (3 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_es_parseOneField(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pt_FormatOneField(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_en_from_de(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_getDefault_parseTwoFields(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pl_checkRedundantSeparator(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_pt_formatTwoFields(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_fr_parseTwoFields(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_es_parseTwoFields(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_es_formatStandard(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_en_from_pl(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_getDefault_formatStandard(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_default(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_ja_formatSingular(org.joda.time.format.TestPeriodFormat) (0 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBased_fr_parseOneField(org.joda.time.format.TestPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormat.test_wordBasedWithLocale_localeValue(org.joda.time.format.TestPeriodFormat) (2 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.1.7
+
+</body>
+</html>

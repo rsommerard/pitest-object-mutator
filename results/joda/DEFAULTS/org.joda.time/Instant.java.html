@@ -1,0 +1,5445 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10;display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+
+.pop span { border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+</style>
+
+</head>
+<body>
+
+
+<h1>Instant.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2001-2010 Stephen Colebourne</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.joda.time;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serializable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.convert.FromString;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.base.AbstractInstant;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.chrono.ISOChronology;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.convert.ConverterManager;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.convert.InstantConverter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.format.DateTimeFormatter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.format.ISODateTimeFormat;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Instant is the standard implementation of a fully immutable instant in time.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;code&#62;Instant&#60;/code&#62; is an implementation of {@link ReadableInstant}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * As with all instants, it represents an exact point on the time-line,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * but limited to the precision of milliseconds. An &#60;code&#62;Instant&#60;/code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * should be used to represent a point in time irrespective of any other</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * factor, such as chronology or time zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Internally, the class holds one piece of data, the instant as milliseconds</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * from the Java epoch of 1970-01-01T00:00:00Z.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * For example, an Instant can be used to compare two &#60;code&#62;DateTime&#60;/code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * objects irrespective of chronology or time zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * boolean sameInstant = dt1.toInstant().equals(dt2.toInstant());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Note that the following code will also perform the same check:</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * boolean sameInstant = dt1.isEqual(dt2);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;/pre&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Instant is thread-safe and immutable.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Stephen Colebourne</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public final class Instant</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        extends AbstractInstant</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        implements ReadableInstant, Serializable {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Serialization lock */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = 3299096530934209741L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The millis from 1970-01-01T00:00:00Z */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private final long iMillis;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_65'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_66'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_67'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Obtains an {@code Instant} set to the current system millisecond time.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_69'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the current instant, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_71'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Instant now() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_73'/>
+73
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_73'>1</a>
+<span>
+1. now : mutated return of Object value for org/joda/time/Instant::now to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new Instant();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_77'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_78'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Parses a {@code Instant} from the specified string.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_79'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This uses {@link ISODateTimeFormat#dateTimeParser()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param str  the string to parse, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_85'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @FromString</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Instant parse(String str) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_87'>1</a>
+<span>
+1. parse : mutated return of Object value for org/joda/time/Instant::parse to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return parse(str, ISODateTimeFormat.dateTimeParser());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Parses a {@code Instant} from the specified string using a formatter.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param str  the string to parse, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param formatter  the formatter to use, not null</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static Instant parse(String str, DateTimeFormatter formatter) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_98'/>
+98
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_98'>1</a>
+<span>
+1. parse : mutated return of Object value for org/joda/time/Instant::parse to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return formatter.parseDateTime(str).toInstant();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_101'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an instance set to the current system millisecond time.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @see #now()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_107'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_108'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_109'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        iMillis = DateTimeUtils.currentTimeMillis();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_110'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_112'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an instance set to the milliseconds from 1970-01-01T00:00:00Z.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param instant  the milliseconds from 1970-01-01T00:00:00Z</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant(long instant) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_118'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_119'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        iMillis = instant;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_120'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructs an instance from an Object that represents a datetime.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The recognised object types are defined in {@link ConverterManager} and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * include String, Calendar and Date.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_127'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param instant  the datetime object, null means now</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws IllegalArgumentException if the instant is invalid</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant(Object instant) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_132'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_133'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        InstantConverter converter = ConverterManager.getInstance().getInstantConverter(instant);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_134'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        iMillis = converter.getInstantMillis(instant, ISOChronology.getInstanceUTC());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_135'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_137'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_138'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get this object as an Instant by returning &#60;code&#62;this&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return &#60;code&#62;this&#60;/code&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_143'/>
+143
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_143'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant toInstant() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_144'/>
+144
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_144'>1</a>
+<span>
+1. toInstant : mutated return of Object value for org/joda/time/Instant::toInstant to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets a copy of this instant with different millis.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The returned object will be either be a new Instant or &#60;code&#62;this&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param newMillis  the new millis, from 1970-01-01T00:00:00Z</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a copy of this instant with different millis</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant withMillis(long newMillis) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_157'/>
+157
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_157'>2</a>
+<span>
+1. withMillis : negated conditional &rarr; KILLED<br/>
+2. withMillis : mutated return of Object value for org/joda/time/Instant::withMillis to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (newMillis == iMillis ? this : new Instant(newMillis));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_158'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets a copy of this instant with the specified duration added.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_162'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_163'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If the addition is zero, then &#60;code&#62;this&#60;/code&#62; is returned.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_164'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_165'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param durationToAdd  the duration to add to this one</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_166'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param scalar  the amount of times to add, such as -1 to subtract once</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_167'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a copy of this instant with the duration added</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_168'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ArithmeticException if the new instant exceeds the capacity of a long</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_169'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant withDurationAdded(long durationToAdd, int scalar) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_171'/>
+171
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_171'>2</a>
+<span>
+1. withDurationAdded : negated conditional &rarr; KILLED<br/>
+2. withDurationAdded : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (durationToAdd == 0 || scalar == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_172'/>
+172
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_172'>1</a>
+<span>
+1. withDurationAdded : mutated return of Object value for org/joda/time/Instant::withDurationAdded to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_174'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        long instant = getChronology().add(getMillis(), durationToAdd, scalar);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_175'/>
+175
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_175'>1</a>
+<span>
+1. withDurationAdded : mutated return of Object value for org/joda/time/Instant::withDurationAdded to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return withMillis(instant);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets a copy of this instant with the specified duration added.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If the addition is zero, then &#60;code&#62;this&#60;/code&#62; is returned.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_183'/>
+183
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_183'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param durationToAdd  the duration to add to this one, null means zero</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_184'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param scalar  the amount of times to add, such as -1 to subtract once</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_185'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a copy of this instant with the duration added</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_186'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ArithmeticException if the new instant exceeds the capacity of a long</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_187'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_188'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant withDurationAdded(ReadableDuration durationToAdd, int scalar) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_189'/>
+189
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_189'>2</a>
+<span>
+1. withDurationAdded : negated conditional &rarr; KILLED<br/>
+2. withDurationAdded : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (durationToAdd == null || scalar == 0) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_190'/>
+190
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_190'>1</a>
+<span>
+1. withDurationAdded : mutated return of Object value for org/joda/time/Instant::withDurationAdded to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return this;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_191'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_192'/>
+192
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_192'>1</a>
+<span>
+1. withDurationAdded : mutated return of Object value for org/joda/time/Instant::withDurationAdded to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return withDurationAdded(durationToAdd.getMillis(), scalar);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_193'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_194'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_195'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_196'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_197'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets a copy of this instant with the specified duration added.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_198'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_199'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If the amount is zero or null, then &#60;code&#62;this&#60;/code&#62; is returned.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_200'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_201'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param duration  the duration to add to this one</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a copy of this instant with the duration added</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_203'/>
+203
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_203'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ArithmeticException if the new instant exceeds the capacity of a long</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant plus(long duration) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_206'/>
+206
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_206'>1</a>
+<span>
+1. plus : mutated return of Object value for org/joda/time/Instant::plus to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return withDurationAdded(duration, 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_207'/>
+207
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_207'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_208'/>
+208
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_208'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_209'/>
+209
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_209'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_210'/>
+210
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_210'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets a copy of this instant with the specified duration added.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_211'/>
+211
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_211'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_212'/>
+212
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_212'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If the amount is zero or null, then &#60;code&#62;this&#60;/code&#62; is returned.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_213'/>
+213
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_213'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_214'/>
+214
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_214'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param duration  the duration to add to this one, null means zero</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_215'/>
+215
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_215'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a copy of this instant with the duration added</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_216'/>
+216
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_216'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ArithmeticException if the new instant exceeds the capacity of a long</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_217'/>
+217
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_217'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_218'/>
+218
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_218'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant plus(ReadableDuration duration) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_219'/>
+219
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_219'>1</a>
+<span>
+1. plus : mutated return of Object value for org/joda/time/Instant::plus to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return withDurationAdded(duration, 1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_220'/>
+220
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_220'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_221'/>
+221
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_221'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_222'/>
+222
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_222'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_223'/>
+223
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_223'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_224'/>
+224
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_224'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets a copy of this instant with the specified duration taken away.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_225'/>
+225
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_225'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_226'/>
+226
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_226'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If the amount is zero or null, then &#60;code&#62;this&#60;/code&#62; is returned.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_227'/>
+227
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_227'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_228'/>
+228
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_228'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param duration  the duration to reduce this instant by</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_229'/>
+229
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_229'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a copy of this instant with the duration taken away</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_230'/>
+230
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_230'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ArithmeticException if the new instant exceeds the capacity of a long</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_231'/>
+231
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_231'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_232'/>
+232
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_232'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant minus(long duration) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_233'/>
+233
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_233'>1</a>
+<span>
+1. minus : mutated return of Object value for org/joda/time/Instant::minus to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return withDurationAdded(duration, -1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_234'/>
+234
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_234'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_235'/>
+235
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_235'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_236'/>
+236
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_236'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_237'/>
+237
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_237'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets a copy of this instant with the specified duration taken away.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_238'/>
+238
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_238'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_239'/>
+239
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_239'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * If the amount is zero or null, then &#60;code&#62;this&#60;/code&#62; is returned.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_240'/>
+240
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_240'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_241'/>
+241
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_241'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param duration  the duration to reduce this instant by</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_242'/>
+242
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_242'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a copy of this instant with the duration taken away</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_243'/>
+243
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_243'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @throws ArithmeticException if the new instant exceeds the capacity of a long</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_244'/>
+244
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_244'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_245'/>
+245
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_245'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Instant minus(ReadableDuration duration) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_246'/>
+246
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_246'>1</a>
+<span>
+1. minus : mutated return of Object value for org/joda/time/Instant::minus to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return withDurationAdded(duration, -1);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_247'/>
+247
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_247'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_248'/>
+248
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_248'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_249'/>
+249
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_249'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_250'/>
+250
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_250'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_251'/>
+251
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_251'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the milliseconds of the instant.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_252'/>
+252
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_252'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_253'/>
+253
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_253'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the number of milliseconds since 1970-01-01T00:00:00Z</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_254'/>
+254
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_254'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_255'/>
+255
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_255'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public long getMillis() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_256'/>
+256
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_256'>1</a>
+<span>
+1. getMillis : replaced return of long value with value + 1 for org/joda/time/Instant::getMillis &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return iMillis;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_257'/>
+257
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_257'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_258'/>
+258
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_258'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_259'/>
+259
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_259'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_260'/>
+260
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_260'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Gets the chronology of the instant, which is ISO in the UTC zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_261'/>
+261
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_261'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_262'/>
+262
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_262'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method returns {@link ISOChronology#getInstanceUTC()} which</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_263'/>
+263
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_263'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * corresponds to the definition of the Java epoch 1970-01-01T00:00:00Z.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_264'/>
+264
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_264'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_265'/>
+265
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_265'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return ISO in the UTC zone</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_266'/>
+266
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_266'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_267'/>
+267
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_267'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Chronology getChronology() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_268'/>
+268
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_268'>1</a>
+<span>
+1. getChronology : mutated return of Object value for org/joda/time/Instant::getChronology to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return ISOChronology.getInstanceUTC();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_269'/>
+269
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_269'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_270'/>
+270
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_270'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_271'/>
+271
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_271'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_272'/>
+272
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_272'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_273'/>
+273
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_273'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get this object as a DateTime using ISOChronology in the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_274'/>
+274
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_274'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_275'/>
+275
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_275'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method returns a DateTime object in the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_276'/>
+276
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_276'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This differs from the similarly named method on DateTime, DateMidnight</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_277'/>
+277
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_277'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * or MutableDateTime which retains the time zone. The difference is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_278'/>
+278
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_278'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * because Instant really represents a time &#60;i&#62;without&#60;/i&#62; a zone,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_279'/>
+279
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_279'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * thus calling this method we really have no zone to &#39;retain&#39; and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_280'/>
+280
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_280'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * hence expect to switch to the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_281'/>
+281
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_281'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_282'/>
+282
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_282'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method definition preserves compatibility with earlier versions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_283'/>
+283
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_283'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * of Joda-Time.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_284'/>
+284
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_284'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_285'/>
+285
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_285'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a DateTime using the same millis</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_286'/>
+286
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_286'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_287'/>
+287
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_287'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DateTime toDateTime() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_288'/>
+288
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_288'>1</a>
+<span>
+1. toDateTime : mutated return of Object value for org/joda/time/Instant::toDateTime to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new DateTime(getMillis(), ISOChronology.getInstance());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_289'/>
+289
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_289'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_290'/>
+290
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_290'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_291'/>
+291
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_291'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_292'/>
+292
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_292'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get this object as a DateTime using ISOChronology in the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_293'/>
+293
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_293'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method is identical to &#60;code&#62;toDateTime()&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_294'/>
+294
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_294'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_295'/>
+295
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_295'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method returns a DateTime object in the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_296'/>
+296
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_296'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This differs from the similarly named method on DateTime, DateMidnight</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_297'/>
+297
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_297'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * or MutableDateTime which retains the time zone. The difference is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_298'/>
+298
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_298'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * because Instant really represents a time &#60;i&#62;without&#60;/i&#62; a zone,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_299'/>
+299
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_299'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * thus calling this method we really have no zone to &#39;retain&#39; and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_300'/>
+300
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_300'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * hence expect to switch to the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_301'/>
+301
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_301'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_302'/>
+302
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_302'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method is deprecated because it is a duplicate of {@link #toDateTime()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_303'/>
+303
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_303'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * However, removing it would cause the superclass implementation to be used,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_304'/>
+304
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_304'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * which would create silent bugs in any caller depending on this implementation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_305'/>
+305
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_305'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * As such, the method itself is not currently planned to be removed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_306'/>
+306
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_306'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_307'/>
+307
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_307'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method definition preserves compatibility with earlier versions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_308'/>
+308
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_308'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * of Joda-Time.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_309'/>
+309
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_309'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_310'/>
+310
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_310'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a DateTime using the same millis with ISOChronology</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_311'/>
+311
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_311'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use toDateTime() as it is identical</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_312'/>
+312
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_312'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_313'/>
+313
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_313'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_314'/>
+314
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_314'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public DateTime toDateTimeISO() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_315'/>
+315
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_315'>1</a>
+<span>
+1. toDateTimeISO : mutated return of Object value for org/joda/time/Instant::toDateTimeISO to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return toDateTime();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_316'/>
+316
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_316'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_317'/>
+317
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_317'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_318'/>
+318
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_318'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_319'/>
+319
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_319'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get this object as a MutableDateTime using ISOChronology in the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_320'/>
+320
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_320'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_321'/>
+321
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_321'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method returns a MutableDateTime object in the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_322'/>
+322
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_322'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This differs from the similarly named method on DateTime, DateMidnight</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_323'/>
+323
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_323'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * or MutableDateTime which retains the time zone. The difference is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_324'/>
+324
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_324'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * because Instant really represents a time &#60;i&#62;without&#60;/i&#62; a zone,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_325'/>
+325
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_325'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * thus calling this method we really have no zone to &#39;retain&#39; and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_326'/>
+326
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_326'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * hence expect to switch to the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_327'/>
+327
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_327'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_328'/>
+328
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_328'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method definition preserves compatibility with earlier versions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_329'/>
+329
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_329'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * of Joda-Time.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_330'/>
+330
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_330'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_331'/>
+331
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_331'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a MutableDateTime using the same millis</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_332'/>
+332
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_332'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_333'/>
+333
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_333'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public MutableDateTime toMutableDateTime() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_334'/>
+334
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_334'>1</a>
+<span>
+1. toMutableDateTime : mutated return of Object value for org/joda/time/Instant::toMutableDateTime to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new MutableDateTime(getMillis(), ISOChronology.getInstance());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_335'/>
+335
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_335'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_336'/>
+336
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_336'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_337'/>
+337
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_337'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_338'/>
+338
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_338'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Get this object as a MutableDateTime using ISOChronology in the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_339'/>
+339
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_339'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method is identical to &#60;code&#62;toMutableDateTime()&#60;/code&#62;.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_340'/>
+340
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_340'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_341'/>
+341
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_341'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method returns a MutableDateTime object in the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_342'/>
+342
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_342'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This differs from the similarly named method on DateTime, DateMidnight</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_343'/>
+343
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_343'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * or MutableDateTime which retains the time zone. The difference is</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_344'/>
+344
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_344'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * because Instant really represents a time &#60;i&#62;without&#60;/i&#62; a zone,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_345'/>
+345
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_345'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * thus calling this method we really have no zone to &#39;retain&#39; and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_346'/>
+346
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_346'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * hence expect to switch to the default zone.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_347'/>
+347
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_347'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_348'/>
+348
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_348'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method is deprecated because it is a duplicate of {@link #toMutableDateTime()}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_349'/>
+349
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_349'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * However, removing it would cause the superclass implementation to be used,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_350'/>
+350
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_350'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * which would create silent bugs in any caller depending on this implementation.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_351'/>
+351
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_351'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * As such, the method itself is not currently planned to be removed.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_352'/>
+352
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_352'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_353'/>
+353
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_353'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * This method definition preserves compatibility with earlier versions</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_354'/>
+354
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_354'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * of Joda-Time.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_355'/>
+355
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_355'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_356'/>
+356
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_356'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return a MutableDateTime using the same millis with ISOChronology</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_357'/>
+357
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_357'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @deprecated Use toMutableDateTime() as it is identical</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_358'/>
+358
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_358'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_359'/>
+359
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_359'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Deprecated</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_360'/>
+360
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_360'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public MutableDateTime toMutableDateTimeISO() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_361'/>
+361
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_361'>1</a>
+<span>
+1. toMutableDateTimeISO : mutated return of Object value for org/joda/time/Instant::toMutableDateTimeISO to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return toMutableDateTime();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_362'/>
+362
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_362'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_363'/>
+363
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_363'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@7b5bc532_364'/>
+364
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_364'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_73'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>now<br/><b>Killed by : </b>org.joda.time.TestInstant_Constructors.test_now(org.joda.time.TestInstant_Constructors)</span></span> mutated return of Object value for org/joda/time/Instant::now to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>org.joda.time.TestInstant_Constructors.testParse_noFormatter(org.joda.time.TestInstant_Constructors)</span></span> mutated return of Object value for org/joda/time/Instant::parse to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_98'>98</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_98'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>parse<br/><b>Killed by : </b>org.joda.time.TestInstant_Constructors.testParse_formatter(org.joda.time.TestInstant_Constructors)</span></span> mutated return of Object value for org/joda/time/Instant::parse to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_144'>144</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_144'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toInstant<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testToInstant(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::toInstant to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_157'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withMillis<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testWithMillis_long(org.joda.time.TestInstant_Basics)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>withMillis<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testWithMillis_long(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::withMillis to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_171'>171</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_171'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withDurationAdded<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testMinus_long(org.joda.time.TestInstant_Basics)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>withDurationAdded<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testMinus_long(org.joda.time.TestInstant_Basics)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_172'>172</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_172'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withDurationAdded<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testWithDurationAdded_long_int(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::withDurationAdded to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_175'>175</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_175'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withDurationAdded<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testMinus_long(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::withDurationAdded to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_189'>189</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_189'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withDurationAdded<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testPlus_RD(org.joda.time.TestInstant_Basics)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>withDurationAdded<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testPlus_RD(org.joda.time.TestInstant_Basics)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_190'>190</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_190'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withDurationAdded<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testPlus_RD(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::withDurationAdded to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_192'>192</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_192'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>withDurationAdded<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testPlus_RD(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::withDurationAdded to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_206'>206</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_206'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>plus<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testPlus_long(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::plus to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_219'>219</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_219'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>plus<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testPlus_RD(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::plus to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_233'>233</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_233'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>minus<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testMinus_long(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::minus to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_246'>246</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_246'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>minus<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testMinus_RD(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::minus to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_256'>256</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_256'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getMillis<br/><b>Killed by : </b>org.joda.time.TestDateTimeUtils.testGetInstantMillis_RI(org.joda.time.TestDateTimeUtils)</span></span> replaced return of long value with value + 1 for org/joda/time/Instant::getMillis &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_268'>268</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_268'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getChronology<br/><b>Killed by : </b>org.joda.time.TestInstant_Constructors.testConstructor(org.joda.time.TestInstant_Constructors)</span></span> mutated return of Object value for org/joda/time/Instant::getChronology to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_288'>288</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_288'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toDateTime<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testToDateTime(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::toDateTime to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_315'>315</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_315'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toDateTimeISO<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testToDateTimeISO(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::toDateTimeISO to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_334'>334</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_334'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMutableDateTime<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testToMutableDateTime(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::toMutableDateTime to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@7b5bc532_361'>361</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@7b5bc532_361'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>toMutableDateTimeISO<br/><b>Killed by : </b>org.joda.time.TestInstant_Basics.testToMutableDateTimeISO(org.joda.time.TestInstant_Basics)</span></span> mutated return of Object value for org/joda/time/Instant::toMutableDateTimeISO to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.joda.time.TestPeriodType.testTest(org.joda.time.TestPeriodType) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testDurationFields(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_weekyear_month_week_2012(org.joda.time.format.TestDateTimeFormatter) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testSerialization(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testTest(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testEquality(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.TestInstant_Constructors.testConstructor_badconverterObject(org.joda.time.TestInstant_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testToDurationFrom(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_new_Gaza(org.joda.time.TestDateTimeZoneCutover) (2 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testContains_RI(org.joda.time.TestMutableInterval_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testIsAfter_RI(org.joda.time.TestInterval_Basics) (0 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_weekyear_month_week_2011(org.joda.time.format.TestDateTimeFormatter) (1 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDateTime_monthDay_feb29(org.joda.time.format.TestDateTimeFormatter) (1 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testPrint_chrono_and_zone(org.joda.time.format.TestDateTimeFormatter) (2 ms)</li><li>org.joda.time.TestDuration_Constructors.testConstructor_Overflow3(org.joda.time.TestDuration_Constructors) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testFactory_Zone_long_int(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testWithZone(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testIsEqual_long(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.TestSerialization.testSerializedGJChronology(org.joda.time.TestSerialization) (3 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testToDurationFrom(org.joda.time.TestMutablePeriod_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_setHourBack_Moscow_Spring(org.joda.time.TestDateTimeZoneCutover) (1 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testTest(org.joda.time.TestMutableInterval_Constructors) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testIsAfterNow(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestSerialization.testSerializedGJChronologyChangedInternals(org.joda.time.TestSerialization) (5 ms)</li><li>org.joda.time.chrono.TestGJChronology.testCutoverAddWeeks(org.joda.time.chrono.TestGJChronology) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testMinus_RD(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.convert.TestNullConverter.testSetInto_Object_Chronology1(org.joda.time.convert.TestNullConverter) (0 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyWithMaximumValueMillisOfDayDSTGap(org.joda.time.TestDateTime_Properties) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testCompareTo(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testContains_RI_zeroDuration(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testContains_RI(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testIsEqual_RI(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RI_RI_chronoEnd(org.joda.time.TestInterval_Constructors) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testToDateTime_Chronology(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testIsAfter_RI(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testTest(org.joda.time.TestMutableInterval_Basics) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testCutoverAddYears(org.joda.time.chrono.TestGJChronology) (5 ms)</li><li>org.joda.time.chrono.TestGJChronology.testCutoverAddDays(org.joda.time.chrono.TestGJChronology) (2 ms)</li><li>org.joda.time.TestInstant_Basics.testIsEqualNow(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testConstructor_RI_RI9(org.joda.time.TestMutableInterval_Constructors) (0 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyWithMinimumValueMillisOfDayDSTGap(org.joda.time.TestDateTime_Properties) (2 ms)</li><li>org.joda.time.TestInstant_Constructors.testConstructor_nullObject(org.joda.time.TestInstant_Constructors) (1 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_yearOfEra(org.joda.time.format.TestDateTimeFormatter) (1 ms)</li><li>org.joda.time.TestDateMidnight_Constructors.testTest(org.joda.time.TestDateMidnight_Constructors) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testLeap_28feb(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSetStart_RI1(org.joda.time.TestMutableInterval_Updates) (0 ms)</li><li>org.joda.time.TestMutableDateTime_Sets.testTest(org.joda.time.TestMutableDateTime_Sets) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testToDate(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testWithEndInstant_RI2(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testLeapYearRulesConstruction(org.joda.time.chrono.TestGJChronology) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testTimeOfDayAdd(org.joda.time.chrono.TestGJChronology) (3 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testIsBefore_RI(org.joda.time.TestMutableInterval_Basics) (0 ms)</li><li>org.joda.time.convert.TestReadableIntervalConverter.testSetIntoInterval_Object3(org.joda.time.convert.TestReadableIntervalConverter) (1 ms)</li><li>org.joda.time.TestChronology.testToString(org.joda.time.TestChronology) (2 ms)</li><li>org.joda.time.TestLocalTime_Constructors.testConstructor_Object2(org.joda.time.TestLocalTime_Constructors) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Updates.testTest(org.joda.time.TestMutablePeriod_Updates) (1 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDateTime_monthDay_withDefaultYear_feb29(org.joda.time.format.TestDateTimeFormatter) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testWithEndInstant_RI1(org.joda.time.TestInterval_Basics) (0 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSetInterval_RI_RI1(org.joda.time.TestMutableInterval_Updates) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testMinus_long(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeZone.testGetOffset_RI(org.joda.time.TestDateTimeZone) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testFactory_Zone_RI(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testOverlap_RInterval_zoneUTC(org.joda.time.TestInterval_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeUtils.testGetInstantMillis_RI(org.joda.time.TestDateTimeUtils) (0 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testTest(org.joda.time.TestMutableInterval_Updates) (0 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_monthDay_feb29(org.joda.time.format.TestDateTimeFormatter) (1 ms)</li><li>org.joda.time.TestInstant_Constructors.testConstructor_long2(org.joda.time.TestInstant_Constructors) (0 ms)</li><li>org.joda.time.chrono.TestGJDate.test_cutoverPreZero(org.joda.time.chrono.TestGJDate) (1 ms)</li><li>org.joda.time.chrono.TestLenientChronology.test_isoChrononolgy_Chicago(org.joda.time.chrono.TestLenientChronology) (0 ms)</li><li>org.joda.time.convert.TestReadableInstantConverter.testGetInstantMillis_Object_Chronology(org.joda.time.convert.TestReadableInstantConverter) (0 ms)</li><li>org.joda.time.TestDateTime_Basics.testToInstant(org.joda.time.TestDateTime_Basics) (1 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSetInterval_RI_RI3(org.joda.time.TestMutableInterval_Updates) (0 ms)</li><li>org.joda.time.TestInstant_Constructors.testConstructor(org.joda.time.TestInstant_Constructors) (0 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_LocalDate_toDateMidnight_Turk(org.joda.time.TestDateTimeZoneCutover) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testToDateTime(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_year_month_week_2016(org.joda.time.format.TestDateTimeFormatter) (1 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_setHourForward_NewYork_Spring(org.joda.time.TestDateTimeZoneCutover) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testCutoverAddMonths(org.joda.time.chrono.TestGJChronology) (5 ms)</li><li>org.joda.time.TestInstant_Basics.testIsBefore_long(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_monthDay_withDefaultYear_feb29(org.joda.time.format.TestDateTimeFormatter) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_long_long_Chronology(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testCutoverAddWeekyears(org.joda.time.chrono.TestGJChronology) (3 ms)</li><li>org.joda.time.chrono.TestGJChronology.testToString(org.joda.time.chrono.TestGJChronology) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testGet_DateTimeField(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_weekyear_month_week_2010(org.joda.time.format.TestDateTimeFormatter) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testFactory_Zone(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_withHourZero_Gaza(org.joda.time.TestDateTimeZoneCutover) (1 ms)</li><li>org.joda.time.TestDateTimeUtils.testIsContiguous_RP_GJChronology(org.joda.time.TestDateTimeUtils) (1 ms)</li><li>org.joda.time.TestDateTimeUtils.testGetInstantChronology_RI(org.joda.time.TestDateTimeUtils) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testToDateTime_DateTimeZone(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RI_RP2(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testEqualsHashCode(org.joda.time.TestMutableInterval_Basics) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testIsAfter_long(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.convert.TestCalendarConverter.testGetChronology_Object_Zone(org.joda.time.convert.TestCalendarConverter) (5 ms)</li><li>org.joda.time.TestInstant_Basics.testToMutableDateTime_Chronology(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RI_RI2(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSetInterval_RI_RI2(org.joda.time.TestMutableInterval_Updates) (0 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testConstructor_RI_RI8(org.joda.time.TestMutableInterval_Constructors) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testYearEndAddDays(org.joda.time.chrono.TestGJChronology) (2 ms)</li><li>org.joda.time.TestInterval_Basics.testIsBefore_RI(org.joda.time.TestInterval_Basics) (0 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSetEnd_RI2(org.joda.time.TestMutableInterval_Updates) (1 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_new_Turk(org.joda.time.TestDateTimeZoneCutover) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testPartialGetAsText(org.joda.time.chrono.TestGJChronology) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testToInstant(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestChronology.testTest(org.joda.time.TestChronology) (48 ms)</li><li>org.joda.time.TestInstant_Basics.testToMutableDateTime(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestSerialization.testTest(org.joda.time.TestSerialization) (0 ms)</li><li>org.joda.time.convert.TestReadableInstantConverter.testGetChronology_Object_Zone(org.joda.time.convert.TestReadableInstantConverter) (0 ms)</li><li>org.joda.time.TestInstant_Constructors.testParse_formatter(org.joda.time.TestInstant_Constructors) (1 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_year_month_week_2014(org.joda.time.format.TestDateTimeFormatter) (0 ms)</li><li>org.joda.time.TestDateMidnight_Basics.testTest(org.joda.time.TestDateMidnight_Basics) (1 ms)</li><li>org.joda.time.TestDuration_Basics.testTest(org.joda.time.TestDuration_Basics) (0 ms)</li><li>org.joda.time.TestDateTime_Constructors.testTest(org.joda.time.TestDateTime_Constructors) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testPlus_RD(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testConstructor_RP_RI2(org.joda.time.TestMutableInterval_Constructors) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testWithStartInstant_RI2(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testParseEquivalence(org.joda.time.chrono.TestGJChronology) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testPlus_long(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testFactory_Zone_RI_int(org.joda.time.chrono.TestGJChronology) (1 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_year_month_week_2010(org.joda.time.format.TestDateTimeFormatter) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RP_RI2(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RI_RI_chronoStart(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.TestDateMidnight_Basics.testToInstant(org.joda.time.TestDateMidnight_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_setHourBack_NewYork_Spring(org.joda.time.TestDateTimeZoneCutover) (1 ms)</li><li>org.joda.time.TestInstant_Constructors.test_now(org.joda.time.TestInstant_Constructors) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testGap_RInterval_zoneUTC(org.joda.time.TestInterval_Basics) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testIsBeforeNow(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestIllegalFieldValueException.testZoneTransition(org.joda.time.TestIllegalFieldValueException) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testWithStartInstant_RI1(org.joda.time.TestInterval_Basics) (0 ms)</li><li>org.joda.time.TestIllegalFieldValueException.testGJCutover(org.joda.time.TestIllegalFieldValueException) (0 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testConstructor_RI_RI2(org.joda.time.TestMutableInterval_Constructors) (1 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSetEnd_RI1(org.joda.time.TestMutableInterval_Updates) (0 ms)</li><li>org.joda.time.TestDateTimeZone.testIsLocalDateTimeGap_Berlin(org.joda.time.TestDateTimeZone) (6 ms)</li><li>org.joda.time.convert.TestReadableInstantConverter.testGetPartialValues(org.joda.time.convert.TestReadableInstantConverter) (0 ms)</li><li>org.joda.time.chrono.TestBuddhistChronology.testDurationFields(org.joda.time.chrono.TestBuddhistChronology) (1 ms)</li><li>org.joda.time.TestTimeOfDay_Constructors.testConstructor_Object2(org.joda.time.TestTimeOfDay_Constructors) (1 ms)</li><li>org.joda.time.TestInstant_Constructors.testConstructor_long1(org.joda.time.TestInstant_Constructors) (0 ms)</li><li>org.joda.time.convert.TestReadableInstantConverter.testGetChronology_Object_nullChronology(org.joda.time.convert.TestReadableInstantConverter) (0 ms)</li><li>org.joda.time.TestDateMidnight_Properties.testTest(org.joda.time.TestDateMidnight_Properties) (1 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RI_RI_instant(org.joda.time.TestInterval_Constructors) (0 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_year_month_week_2012(org.joda.time.format.TestDateTimeFormatter) (0 ms)</li><li>org.joda.time.TestMutableDateTime_Constructors.testTest(org.joda.time.TestMutableDateTime_Constructors) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testEqualsHashCode(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testFactory(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.chrono.TestLenientChronology.test_strictChrononolgy_Chicago(org.joda.time.chrono.TestLenientChronology) (0 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_setHourZero_Turk(org.joda.time.TestDateTimeZoneCutover) (2 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_yearOfCentury(org.joda.time.format.TestDateTimeFormatter) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testSubtractDays(org.joda.time.chrono.TestGJChronology) (1 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testIsAfter_RI(org.joda.time.TestMutableInterval_Basics) (0 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoInterval_Object_Chronology8(org.joda.time.convert.TestStringConverter) (1 ms)</li><li>org.joda.time.chrono.TestGJChronology.testIllegalDates(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_year_month_week_2011(org.joda.time.format.TestDateTimeFormatter) (0 ms)</li><li>org.joda.time.format.TestDateTimeFormat.testFormat_yearOfEraParse(org.joda.time.format.TestDateTimeFormat) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testWithDurationAdded_RD_int(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testConstructor_long_long_Chronology1(org.joda.time.TestMutableInterval_Constructors) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime_Zone_dstGap(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeZone.testIsLocalDateTimeGap_NewYork(org.joda.time.TestDateTimeZone) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testIsBefore_RI(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testLeap_29feb(org.joda.time.chrono.TestGJChronology) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testToDurationTo(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSetInterval_RI_RI4(org.joda.time.TestMutableInterval_Updates) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testLeapYearRulesConstructionInvalid(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.TestSerialization.testSerializedLocalDateBuddhist(org.joda.time.TestSerialization) (3 ms)</li><li>org.joda.time.TestDateTimeZone.testGetOffsetFixed_RI(org.joda.time.TestDateTimeZone) (0 ms)</li><li>org.joda.time.convert.TestNullConverter.testSetInto_Object_Chronology2(org.joda.time.convert.TestNullConverter) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testMaximumValue(org.joda.time.chrono.TestGJChronology) (409 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testTest(org.joda.time.TestMutablePeriod_Basics) (0 ms)</li><li>org.joda.time.TestMutableDateTime_Adds.testTest(org.joda.time.TestMutableDateTime_Adds) (0 ms)</li><li>org.joda.time.TestMutableDateTime_Sets.testSetMillis_RI1(org.joda.time.TestMutableDateTime_Sets) (4 ms)</li><li>org.joda.time.TestDateTime_Basics.testTest(org.joda.time.TestDateTime_Basics) (1 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_year_month_week_2015(org.joda.time.format.TestDateTimeFormatter) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testToMutableDateTime_DateTimeZone(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_setHourForward_Moscow_Spring(org.joda.time.TestDateTimeZoneCutover) (1 ms)</li><li>org.joda.time.TestSerialization.testSerializedInstant(org.joda.time.TestSerialization) (0 ms)</li><li>org.joda.time.TestDuration_Constructors.testConstructor_Overflow4(org.joda.time.TestDuration_Constructors) (0 ms)</li><li>org.joda.time.TestMutableInterval_Updates.testSetStart_RI2(org.joda.time.TestMutableInterval_Updates) (0 ms)</li><li>org.joda.time.TestDateTimeComparator.testBasicComps5(org.joda.time.TestDateTimeComparator) (2 ms)</li><li>org.joda.time.chrono.TestGJChronology.testFactoryUTC(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testToMutableDateTimeISO(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testWithUTC(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_setHourZero_Gaza(org.joda.time.TestDateTimeZoneCutover) (2 ms)</li><li>org.joda.time.TestInstant_Constructors.testParse_noFormatter(org.joda.time.TestInstant_Constructors) (0 ms)</li><li>org.joda.time.TestDateTime_Properties.testTest(org.joda.time.TestDateTime_Properties) (1 ms)</li><li>org.joda.time.TestDateTimeUtils.testTest(org.joda.time.TestDateTimeUtils) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testEqualsHashCode(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.TestMutableDateTime_Properties.testTest(org.joda.time.TestMutableDateTime_Properties) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testWithMillis_long(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.TestMutableDateTime_Basics.testTest(org.joda.time.TestMutableDateTime_Basics) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testGetMethods(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testWithDurationAdded_long_int(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testGet_DateTimeFieldType(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testTimeFields(org.joda.time.chrono.TestGJChronology) (0 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_DateTime_withHourZero_Turk(org.joda.time.TestDateTimeZoneCutover) (1 ms)</li><li>org.joda.time.format.TestDateTimeFormatter.testParseLocalDate_year_month_week_2013(org.joda.time.format.TestDateTimeFormatter) (0 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testConstructor_RI_RP2(org.joda.time.TestMutableInterval_Constructors) (1 ms)</li><li>org.joda.time.TestMutableDateTime_Basics.testToInstant(org.joda.time.TestMutableDateTime_Basics) (0 ms)</li><li>org.joda.time.TestInstant_Basics.testToDateTimeISO(org.joda.time.TestInstant_Basics) (1 ms)</li><li>org.joda.time.TestInstant_Basics.testToString(org.joda.time.TestInstant_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_LocalTime_Zone_dstGap(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testTest(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testTest(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.test_LocalDate_toDateMidnight_Gaza(org.joda.time.TestDateTimeZoneCutover) (0 ms)</li><li>org.joda.time.convert.TestCalendarConverter.testGetChronology_Object_nullChronology(org.joda.time.convert.TestCalendarConverter) (2 ms)</li><li>org.joda.time.convert.TestReadableIntervalConverter.testSetIntoInterval_Object2(org.joda.time.convert.TestReadableIntervalConverter) (1 ms)</li><li>org.joda.time.TestSerialization.testSerializedBuddhistChronology(org.joda.time.TestSerialization) (9 ms)</li><li>org.joda.time.TestInstant_Constructors.testConstructor_Object(org.joda.time.TestInstant_Constructors) (0 ms)</li><li>org.joda.time.chrono.TestGJChronology.testDateFields(org.joda.time.chrono.TestGJChronology) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.1.7
+
+</body>
+</html>

@@ -1,0 +1,2693 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10;display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+
+.pop span { border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+</style>
+
+</head>
+<body>
+
+
+<h1>BasicFixedMonthChronology.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2001-2005 Stephen Colebourne</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.joda.time.chrono;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.Chronology;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.joda.time.DateTimeConstants;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Abstract implementation of a calendar system based around fixed length months.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * As the month length is fixed various calculations can be optimised.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * This implementation assumes any additional days after twelve</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * months fall into a thirteenth month.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * BasicFixedMonthChronology is thread-safe and immutable, and all</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * subclasses must be as well.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Brian S O&#39;Neill</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Stephen Colebourne</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.2, refactored from CopticChronology</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>abstract class BasicFixedMonthChronology extends BasicChronology {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Serialization lock */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static final long serialVersionUID = 261387371998L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The length of the month. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final int MONTH_LENGTH = 30;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The typical millis per year. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final long MILLIS_PER_YEAR =</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        (long) (365.25 * DateTimeConstants.MILLIS_PER_DAY);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** The length of the month in millis. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    static final long MILLIS_PER_MONTH = ((long) MONTH_LENGTH) * DateTimeConstants.MILLIS_PER_DAY;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_52'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Restricted constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_53'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param base  the base chronology</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param param  the init parameter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @param minDaysInFirstWeek  the minimum days in the first week</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    BasicFixedMonthChronology(Chronology base, Object param, int minDaysInFirstWeek) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_59'/>
+59
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_59'>2</a>
+<span>
+1. <init> : removed last argument in org/joda/time/chrono/BasicChronology::&#60;init&#62; &rarr; KILLED<br/>
+2. <init> : swaped the 2 last arguments in org/joda/time/chrono/BasicChronology::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        super(base, param, minDaysInFirstWeek);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_60'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    long setYear(long instant, int year) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // optimsed implementation of set, due to fixed months</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_65'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int thisYear = getYear(instant);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_66'>1</a>
+<span>
+1. setYear : removed last argument in org/joda/time/chrono/BasicFixedMonthChronology::getDayOfYear &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        int dayOfYear = getDayOfYear(instant, thisYear);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_67'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int millisOfDay = getMillisOfDay(instant);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_68'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_69'/>
+69
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_69'>2</a>
+<span>
+1. setYear : changed conditional boundary &rarr; SURVIVED<br/>
+2. setYear : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (dayOfYear &#62; 365) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_70'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // Current year is leap, and day is leap.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_71'/>
+71
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_71'>1</a>
+<span>
+1. setYear : negated conditional &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            if (!isLeapYear(year)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_72'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // Moving to a non-leap year, leap day doesn&#39;t exist.</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_73'/>
+73
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_73'>1</a>
+<span>
+1. setYear : Changed increment from -1 to 1 &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>                dayOfYear--;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_74'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_75'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_76'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_77'/>
+77
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_77'>2</a>
+<span>
+1. setYear : removed last argument in org/joda/time/chrono/BasicFixedMonthChronology::getYearMonthDayMillis &rarr; KILLED<br/>
+2. setYear : swaped the 2 last arguments in org/joda/time/chrono/BasicFixedMonthChronology::getYearMonthDayMillis &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        instant = getYearMonthDayMillis(year, 1, dayOfYear);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_78'/>
+78
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_78'>1</a>
+<span>
+1. setYear : Replaced long addition with subtraction &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        instant += millisOfDay;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_79'>1</a>
+<span>
+1. setYear : replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::setYear &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return instant;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_80'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_81'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_82'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_83'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    long getYearDifference(long minuendInstant, long subtrahendInstant) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // optimsed implementation of getDifference, due to fixed months</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_85'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int minuendYear = getYear(minuendInstant);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_86'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        int subtrahendYear = getYear(subtrahendInstant);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Inlined remainder method to avoid duplicate calls to get.</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_89'/>
+89
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_89'>1</a>
+<span>
+1. getYearDifference : Replaced long subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        long minuendRem = minuendInstant - getYearMillis(minuendYear);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_90'/>
+90
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_90'>1</a>
+<span>
+1. getYearDifference : Replaced long subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        long subtrahendRem = subtrahendInstant - getYearMillis(subtrahendYear);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_92'/>
+92
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_92'>1</a>
+<span>
+1. getYearDifference : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        int difference = minuendYear - subtrahendYear;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_93'/>
+93
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_93'>2</a>
+<span>
+1. getYearDifference : changed conditional boundary &rarr; KILLED<br/>
+2. getYearDifference : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (minuendRem &#60; subtrahendRem) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_94'/>
+94
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_94'>1</a>
+<span>
+1. getYearDifference : Changed increment from -1 to 1 &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            difference--;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_96'/>
+96
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_96'>1</a>
+<span>
+1. getYearDifference : replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::getYearDifference &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return difference;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_97'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_98'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_99'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_100'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    long getTotalMillisByYearMonth(int year, int month) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_101'/>
+101
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_101'>3</a>
+<span>
+1. getTotalMillisByYearMonth : Replaced integer subtraction with addition &rarr; KILLED<br/>
+2. getTotalMillisByYearMonth : Replaced long multiplication with division &rarr; KILLED<br/>
+3. getTotalMillisByYearMonth : replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::getTotalMillisByYearMonth &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return ((month - 1) * MILLIS_PER_MONTH);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_102'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_103'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_104'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_105'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int getDayOfMonth(long millis) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_106'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // optimised for fixed months</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_107'/>
+107
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_107'>4</a>
+<span>
+1. getDayOfMonth : Replaced integer subtraction with addition &rarr; KILLED<br/>
+2. getDayOfMonth : Replaced integer modulus with multiplication &rarr; KILLED<br/>
+3. getDayOfMonth : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. getDayOfMonth : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (getDayOfYear(millis) - 1) % MONTH_LENGTH + 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_108'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_109'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_110'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    boolean isLeapYear(int year) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_112'>3</a>
+<span>
+1. isLeapYear : Replaced bitwise AND with OR &rarr; KILLED<br/>
+2. isLeapYear : negated conditional &rarr; KILLED<br/>
+3. isLeapYear : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (year &#38; 3) == 3;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int getDaysInYearMonth(int year, int month) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_117'>3</a>
+<span>
+1. getDaysInYearMonth : negated conditional &rarr; KILLED<br/>
+2. getDaysInYearMonth : negated conditional &rarr; KILLED<br/>
+3. getDaysInYearMonth : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (month != 13) ? MONTH_LENGTH : (isLeapYear(year) ? 6 : 5);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int getDaysInMonthMax() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_122'/>
+122
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_122'>1</a>
+<span>
+1. getDaysInMonthMax : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return MONTH_LENGTH;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_124'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_125'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_126'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int getDaysInMonthMax(int month) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_127'/>
+127
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_127'>2</a>
+<span>
+1. getDaysInMonthMax : negated conditional &rarr; NO_COVERAGE<br/>
+2. getDaysInMonthMax : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE<br/>
+
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>        return (month != 13 ? MONTH_LENGTH : 6);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_128'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_129'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_130'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_131'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int getMonthOfYear(long millis) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_132'/>
+132
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_132'>4</a>
+<span>
+1. getMonthOfYear : Replaced integer subtraction with addition &rarr; KILLED<br/>
+2. getMonthOfYear : Replaced integer division with multiplication &rarr; KILLED<br/>
+3. getMonthOfYear : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. getMonthOfYear : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return (getDayOfYear(millis) - 1) / MONTH_LENGTH + 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_133'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_134'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_135'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_136'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int getMonthOfYear(long millis, int year) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_137'/>
+137
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_137'>2</a>
+<span>
+1. getMonthOfYear : Replaced long subtraction with addition &rarr; KILLED<br/>
+2. getMonthOfYear : Replaced long division with multiplication &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        long monthZeroBased = (millis - getYearMillis(year)) / MILLIS_PER_MONTH;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_138'/>
+138
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_138'>2</a>
+<span>
+1. getMonthOfYear : Replaced integer addition with subtraction &rarr; KILLED<br/>
+2. getMonthOfYear : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return ((int) monthZeroBased) + 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_139'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_140'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_141'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    int getMaxMonth() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_143'/>
+143
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_143'>1</a>
+<span>
+1. getMaxMonth : replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return 13;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    long getAverageMillisPerYear() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_148'/>
+148
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_148'>1</a>
+<span>
+1. getAverageMillisPerYear : replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::getAverageMillisPerYear &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return MILLIS_PER_YEAR;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    long getAverageMillisPerYearDividedByTwo() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_153'/>
+153
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_153'>1</a>
+<span>
+1. getAverageMillisPerYearDividedByTwo : replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::getAverageMillisPerYearDividedByTwo &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return MILLIS_PER_YEAR / 2;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_155'/>
+155
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_155'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_156'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_157'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    long getAverageMillisPerMonth() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_158'/>
+158
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_158'>1</a>
+<span>
+1. getAverageMillisPerMonth : replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::getAverageMillisPerMonth &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        return MILLIS_PER_MONTH;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_159'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_160'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@fbcae4c_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_161'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_59'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.joda.time.chrono.TestEthiopicChronology.testEquality(org.joda.time.chrono.TestEthiopicChronology)</span></span> removed last argument in org/joda/time/chrono/BasicChronology::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b><init><br/><b>Killed by : </b>org.joda.time.chrono.TestEthiopicChronology.testEquality(org.joda.time.chrono.TestEthiopicChronology)</span></span> swaped the 2 last arguments in org/joda/time/chrono/BasicChronology::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> removed last argument in org/joda/time/chrono/BasicFixedMonthChronology::getDayOfYear &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_69'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setYear<br/><b>Killed by : </b>none</span></span> changed conditional boundary &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_71'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setYear<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_73'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setYear<br/><b>Killed by : </b>none</span></span> Changed increment from -1 to 1 &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_77'>77</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_77'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> removed last argument in org/joda/time/chrono/BasicFixedMonthChronology::getYearMonthDayMillis &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>setYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> swaped the 2 last arguments in org/joda/time/chrono/BasicFixedMonthChronology::getYearMonthDayMillis &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_78'>78</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_78'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setYear<br/><b>Killed by : </b>org.joda.time.TestYearMonthDay_Basics.testToDateTime_nullTOD_Zone(org.joda.time.TestYearMonthDay_Basics)</span></span> Replaced long addition with subtraction &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>setYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::setYear &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_89'>89</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_89'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getYearDifference<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced long subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_90'>90</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_90'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getYearDifference<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced long subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_92'>92</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_92'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getYearDifference<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_93'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getYearDifference<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> changed conditional boundary &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getYearDifference<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_94'>94</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_94'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getYearDifference<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> Changed increment from -1 to 1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_96'>96</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_96'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getYearDifference<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology)</span></span> replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::getYearDifference &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_101'>101</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_101'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getTotalMillisByYearMonth<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testEpoch(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getTotalMillisByYearMonth<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeAPI(org.joda.time.TestLocalDate_Basics)</span></span> Replaced long multiplication with division &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getTotalMillisByYearMonth<br/><b>Killed by : </b>org.joda.time.TestLocalDateTime_Basics.testToLocalDate(org.joda.time.TestLocalDateTime_Basics)</span></span> replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::getTotalMillisByYearMonth &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_107'>107</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_107'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDayOfMonth<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeAPI(org.joda.time.TestLocalDate_Basics)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDayOfMonth<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeAPI(org.joda.time.TestLocalDate_Basics)</span></span> Replaced integer modulus with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDayOfMonth<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeAPI(org.joda.time.TestLocalDate_Basics)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getDayOfMonth<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeAPI(org.joda.time.TestLocalDate_Basics)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>isLeapYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced bitwise AND with OR &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>isLeapYear<br/><b>Killed by : </b>org.joda.time.chrono.TestEthiopicChronology.testLeap_6_13(org.joda.time.chrono.TestEthiopicChronology)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>isLeapYear<br/><b>Killed by : </b>org.joda.time.chrono.TestEthiopicChronology.testLeap_6_13(org.joda.time.chrono.TestEthiopicChronology)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDaysInYearMonth<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testToLocalDateTime_nullLocalTime(org.joda.time.TestLocalDate_Basics)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDaysInYearMonth<br/><b>Killed by : </b>org.joda.time.chrono.TestEthiopicChronology.testLeap_6_13(org.joda.time.chrono.TestEthiopicChronology)</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getDaysInYearMonth<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testToLocalDateTime_nullLocalTime(org.joda.time.TestLocalDate_Basics)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_122'>122</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_122'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDaysInMonthMax<br/><b>Killed by : </b>org.joda.time.TestMonthDay_Basics.testWithChronologyRetainFields_sameChrono(org.joda.time.TestMonthDay_Basics)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_127'>127</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_127'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDaysInMonthMax<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getDaysInMonthMax<br/><b>Killed by : </b>none</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_132'>132</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_132'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getMonthOfYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getMonthOfYear<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeAPI(org.joda.time.TestLocalDate_Basics)</span></span> Replaced integer division with multiplication &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>getMonthOfYear<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeAPI(org.joda.time.TestLocalDate_Basics)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>getMonthOfYear<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeAPI(org.joda.time.TestLocalDate_Basics)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_137'>137</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_137'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getMonthOfYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationMonth(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced long subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getMonthOfYear<br/><b>Killed by : </b>org.joda.time.TestInterval_Constructors.testConstructor_RP_RI3(org.joda.time.TestInterval_Constructors)</span></span> Replaced long division with multiplication &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_138'>138</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_138'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getMonthOfYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationMonth(org.joda.time.chrono.TestCopticChronology)</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>getMonthOfYear<br/><b>Killed by : </b>org.joda.time.chrono.TestCopticChronology.testDurationMonth(org.joda.time.chrono.TestCopticChronology)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_143'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getMaxMonth<br/><b>Killed by : </b>org.joda.time.TestLocalDate_Basics.testToLocalDateTime_nullLocalTime(org.joda.time.TestLocalDate_Basics)</span></span> replaced return of integer sized value with (x == 0 ? 1 : 0) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_148'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getAverageMillisPerYear<br/><b>Killed by : </b>none</span></span> replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::getAverageMillisPerYear &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_153'>153</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_153'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getAverageMillisPerYearDividedByTwo<br/><b>Killed by : </b>none</span></span> replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::getAverageMillisPerYearDividedByTwo &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@fbcae4c_158'>158</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@fbcae4c_158'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getAverageMillisPerMonth<br/><b>Killed by : </b>none</span></span> replaced return of long value with value + 1 for org/joda/time/chrono/BasicFixedMonthChronology::getAverageMillisPerMonth &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>ARGUMENT_ORDER_CHANGE_MUTATOR</li>
+<li class='mutator'>ARGUMENT_NUMBER_DECREASE_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.joda.time.TestMonthDay_Basics.testGetFieldType(org.joda.time.TestMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestTimeOfDay_Basics.testSerialization(org.joda.time.TestTimeOfDay_Basics) (1 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestDateTime_Properties) (1 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testSampleDate(org.joda.time.chrono.TestEthiopicChronology) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_RI(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testLeap_6_13(org.joda.time.chrono.TestCopticChronology) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testIsSupported(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RI_RP3(org.joda.time.TestInterval_Constructors) (2 ms)</li><li>org.joda.time.TestLocalDate_Basics.testEqualsHashCode(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testToPeriod_PeriodType1(org.joda.time.TestInterval_Basics) (3 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime_nullZone(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testSerialization(org.joda.time.TestInterval_Basics) (18 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime_Zone(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToInterval_nullZone(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testLeap_5_13(org.joda.time.chrono.TestEthiopicChronology) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtCurrentTime_Zone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_Chronology1(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testGetFieldTypes(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testToInterval_Zone(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testDateFields(org.joda.time.chrono.TestEthiopicChronology) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testIsSupported(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Properties.testPropertyEquals(org.joda.time.TestYearMonthDay_Properties) (1 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testEquality(org.joda.time.chrono.TestEthiopicChronology) (0 ms)</li><li>org.joda.time.TestSerialization.testSerializedCopticChronology(org.joda.time.TestSerialization) (2 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateMidnight_nullZone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestMonthDay_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestMonthDay_Properties) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtStartOfDay_Zone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtCurrentTime_nullZone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyEqualsHashCodeYear(org.joda.time.TestDateTime_Properties) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testGetFieldType(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testSerialization(org.joda.time.TestYearMonth_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeAPI(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testWithChronologyRetainFields_sameChrono(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Properties.testPropertyEquals(org.joda.time.TestLocalDateTime_Properties) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtMidnight_Zone(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime_nullRI(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDate_winter(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToInterval_Zone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testEra(org.joda.time.chrono.TestEthiopicChronology) (0 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testDurationFields(org.joda.time.chrono.TestEthiopicChronology) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtCurrentTime(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_nullLocalTime(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_LocalTime(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_nullLocalTime_Zone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_LocalTime_nullZone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testDurationYear(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_Chronology1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_nullTOD_Zone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testWithPeriodBeforeEnd1(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtMidnight_Zone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testGetField(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime(org.joda.time.TestLocalDateTime_Basics) (3 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testGetField(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testWithChronologyRetainFields_Chrono(org.joda.time.TestMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalTime_Basics.testSerialization(org.joda.time.TestLocalTime_Basics) (2 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testEpoch(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testToLocalDate(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateMidnight_nullZone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeStrict(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtCurrentTime(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestDateTime_Properties) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testSerialization(org.joda.time.TestLocalDate_Basics) (3 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_wrongChronoLocalTime_Zone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToLocalDateTime_LocalTime(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateMidnight_Zone(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtMidnight(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testDurationMonth(org.joda.time.chrono.TestEthiopicChronology) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testSampleDate(org.joda.time.chrono.TestCopticChronology) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testGetField(org.joda.time.TestYearMonth_Basics) (1 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testToPeriod_PeriodType1(org.joda.time.TestMutableInterval_Basics) (1 ms)</li><li>org.joda.time.TestChronology.testToString(org.joda.time.TestChronology) (3 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testDurationMonth(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestMonthDay_Basics.testSerialization(org.joda.time.TestMonthDay_Basics) (15 ms)</li><li>org.joda.time.TestYearMonthDay_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestYearMonthDay_Properties) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToLocalDateTime_nullLocalTime(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testGetFields(org.joda.time.TestMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDate_summer(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestPartial_Basics.testSerialization(org.joda.time.TestPartial_Basics) (2 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_LocalTime_Zone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateMidnight(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToLocalDateTime_wrongChronologyLocalTime(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testEqualsHashCode(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testLeap_6_13(org.joda.time.chrono.TestEthiopicChronology) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_TOD_Zone(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testCalendar(org.joda.time.chrono.TestEthiopicChronology) (1495 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testSampleDateWithZone(org.joda.time.chrono.TestEthiopicChronology) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_long_long_PeriodType_Chronology1(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtMidnight_nullZone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_long_long_PeriodType_Chronology1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToInterval(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testWithChronologyRetainFields_sameChrono(org.joda.time.TestMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testGetFieldType(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateMidnight_Zone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_nullTOD(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testWithChronologyRetainFields_invalidInNewChrono(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testGetFieldTypes(org.joda.time.TestYearMonth_Basics) (1 ms)</li><li>org.joda.time.TestDateMidnight_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestDateMidnight_Properties) (9 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDateTime_RI(org.joda.time.TestLocalDateTime_Basics) (2 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtStartOfDay(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtMidnight_nullZone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTimeAtStartOfDay_nullZone(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateTime_RI(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDate_winter_Zone(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToInterval_nullZone(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_TOD_nullZone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestMonthDay_Basics.testToLocalDate(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestDateMidnight_Basics.testToYearMonthDay(org.joda.time.TestDateMidnight_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestMonthDay_Properties) (1 ms)</li><li>org.joda.time.TestInterval_Basics.testToPeriod(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testIsSupported(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_RP_RI3(org.joda.time.TestInterval_Constructors) (0 ms)</li><li>org.joda.time.TestDateTime_Properties.testPropertyToIntervalHourOfDay(org.joda.time.TestDateTime_Properties) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testSerialization(org.joda.time.TestYearMonthDay_Basics) (2 ms)</li><li>org.joda.time.TestMonthDay_Basics.testWithChronologyRetainFields_nullChrono(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestYearMonthDay_Properties) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testGetFields(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Properties.testPropertyEqualsHashCodeStrict(org.joda.time.TestLocalDate_Properties) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtMidnight(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testSerialization(org.joda.time.TestLocalDateTime_Basics) (3 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testEqualsHashCode(org.joda.time.TestLocalDateTime_Basics) (2 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToLocalDate(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTime_TOD(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtCurrentTime_Zone(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testToDateTime_RI(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestYearMonth_Basics.testToInterval_nullZone(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testWithPeriodAfterStart1(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testDurationFields(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestDateTime_Basics.testToYearMonthDay(org.joda.time.TestDateTime_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testWithChronologyRetainFields_nullChrono(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testEpoch(org.joda.time.chrono.TestEthiopicChronology) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDate_summer_Zone(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testLeap_5_13(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testGetFields(org.joda.time.TestYearMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToLocalDate(org.joda.time.TestLocalDateTime_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testSampleDateWithZone(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestDateMidnight_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestDateMidnight_Properties) (1 ms)</li><li>org.joda.time.TestLocalDate_Properties.testPropertyEquals(org.joda.time.TestLocalDate_Properties) (0 ms)</li><li>org.joda.time.TestMonthDay_Basics.testGetFieldTypes(org.joda.time.TestMonthDay_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testWithChronologyRetainFields_Chrono(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDateMidnight(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToInterval(org.joda.time.TestLocalDate_Basics) (0 ms)</li><li>org.joda.time.TestLocalDate_Basics.testEqualsHashCodeLenient(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testCalendar(org.joda.time.chrono.TestCopticChronology) (1448 ms)</li><li>org.joda.time.TestLocalDate_Basics.testToDate_summer(org.joda.time.TestLocalDate_Basics) (1 ms)</li><li>org.joda.time.TestMonthDay_Basics.testEqualsHashCode(org.joda.time.TestMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToInterval_Zone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.chrono.TestCopticChronology.testEra(org.joda.time.chrono.TestCopticChronology) (0 ms)</li><li>org.joda.time.TestMonthDay_Properties.testPropertyEquals(org.joda.time.TestMonthDay_Properties) (0 ms)</li><li>org.joda.time.TestYearMonth_Basics.testToInterval(org.joda.time.TestYearMonth_Basics) (0 ms)</li><li>org.joda.time.TestMutableInterval_Basics.testToPeriod(org.joda.time.TestMutableInterval_Basics) (1 ms)</li><li>org.joda.time.TestLocalDate_Properties.testPropertyEqualsHashCodeLenient(org.joda.time.TestLocalDate_Properties) (0 ms)</li><li>org.joda.time.chrono.TestEthiopicChronology.testDurationYear(org.joda.time.chrono.TestEthiopicChronology) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToDate_winter(org.joda.time.TestLocalDateTime_Basics) (1 ms)</li><li>org.joda.time.TestYearMonthDay_Basics.testToDateTimeAtCurrentTime_nullZone(org.joda.time.TestYearMonthDay_Basics) (0 ms)</li><li>org.joda.time.TestLocalDateTime_Basics.testToLocalTime(org.joda.time.TestLocalDateTime_Basics) (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.1.7
+
+</body>
+</html>

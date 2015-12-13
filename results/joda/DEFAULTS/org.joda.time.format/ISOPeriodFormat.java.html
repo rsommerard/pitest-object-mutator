@@ -1,0 +1,3098 @@
+<html>
+<head>
+<style type='text/css'>
+html, body, div, span, p, blockquote, pre {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body{
+	line-height: 1;
+	color: black;
+	background: white;
+	margin-left: 20px;
+}
+
+.src { 
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	font-family: Consolas, Courier, monospace;
+}
+
+
+.covered {background-color: #ddffdd}
+.uncovered {background-color: #ffdddd}
+.killed {background-color: #aaffaa}
+.survived {background-color: #ffaaaa}
+.uncertain {background-color: #dde7ef}
+.run_error {background-color: #dde7ef}
+.na {background-color: #eeeeee}
+.timed_out {background-color: #dde7ef}
+.non_viable {background-color: #aaffaa}
+.memory_error {background-color: #dde7ef}
+.not_started {background-color: #dde7ef; color : red}
+.no_coverage {background-color: #ffaaaa}
+
+
+.pop {outline:none; }
+.pop strong {line-height:30px;}
+.pop {text-decoration:none;}
+.pop span { z-index:10;display:none; padding:14px 20px; margin-top:-30px; margin-left:28px; width:800px; line-height:16px; word-wrap:break-word; }
+.pop:hover span{ display:inline; position:absolute; color:#111; border:1px solid #DCA; background:#fffAF0;}
+
+.pop span { border-radius:4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -moz-box-shadow: 5px 5px 8px #CCC; -webkit-box-shadow: 5px 5px 8px #CCC; box-shadow: 5px 5px 8px #CCC; }
+</style>
+
+</head>
+<body>
+
+
+<h1>ISOPeriodFormat.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_1'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/*</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_2'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Copyright 2001-2005 Stephen Colebourne</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_3'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_4'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_5'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  you may not use this file except in compliance with the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_6'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  You may obtain a copy of the License at</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_7'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_8'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *      http://www.apache.org/licenses/LICENSE-2.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_9'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_10'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  Unless required by applicable law or agreed to in writing, software</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_11'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  distributed under the License is distributed on an &#34;AS IS&#34; BASIS,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_12'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_13'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  See the License for the specific language governing permissions and</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_14'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *  limitations under the License.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_15'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_16'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package org.joda.time.format;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_17'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_18'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_19'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Factory that creates instances of PeriodFormatter for the ISO8601 standard.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_20'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_21'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Period formatting is performed by the {@link PeriodFormatter} class.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_22'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Three classes provide factory methods to create formatters, and this is one.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_23'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * The others are {@link PeriodFormat} and {@link PeriodFormatterBuilder}.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_24'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_25'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * ISOPeriodFormat is thread-safe and immutable, and the formatters it</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_26'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * returns are as well.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_27'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_28'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @author Brian S O&#39;Neill</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_29'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @since 1.0</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_30'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see PeriodFormat</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_31'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * @see PeriodFormatterBuilder</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_32'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_33'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class ISOPeriodFormat {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_34'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_35'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Cache of standard format. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_36'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static PeriodFormatter cStandard;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_37'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Cache of alternate months format. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_38'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static PeriodFormatter cAlternate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_39'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Cache of alternate extended months format. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_40'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static PeriodFormatter cAlternateExtended;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_41'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Cache of alternate weeks format. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_42'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static PeriodFormatter cAlternateWithWeeks;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_43'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /** Cache of alternate extended weeks format. */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_44'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private static PeriodFormatter cAlternateExtendedWihWeeks;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_45'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_46'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_47'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Constructor.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_48'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_49'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @since 1.1 (previously private)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_50'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_51'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected ISOPeriodFormat() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_52'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_53'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_54'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_55'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    //-----------------------------------------------------------------------</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_56'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_57'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The standard ISO format - PyYmMwWdDThHmMsS.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_58'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Milliseconds are not output.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_59'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Note that the ISO8601 standard actually indicates weeks should not</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_60'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * be shown if any other field is present and vice versa.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_61'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_62'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the formatter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_63'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_64'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static PeriodFormatter standard() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_65'/>
+65
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_65'>1</a>
+<span>
+1. standard : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (cStandard == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_66'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            cStandard = new PeriodFormatterBuilder()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_67'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendLiteral(&#34;P&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_68'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendYears()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_69'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSuffix(&#34;Y&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_70'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendMonths()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_71'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSuffix(&#34;M&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_72'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendWeeks()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_73'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSuffix(&#34;W&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_74'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendDays()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_75'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSuffix(&#34;D&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_76'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparatorIfFieldsAfter(&#34;T&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_77'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendHours()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_78'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSuffix(&#34;H&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_79'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendMinutes()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_80'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSuffix(&#34;M&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_81'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSecondsWithOptionalMillis()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_82'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSuffix(&#34;S&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_83'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .toFormatter();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_84'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_85'/>
+85
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_85'>1</a>
+<span>
+1. standard : mutated return of Object value for org/joda/time/format/ISOPeriodFormat::standard to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return cStandard;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_86'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_87'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_88'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_89'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The alternate ISO format, PyyyymmddThhmmss, which excludes weeks.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_90'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_91'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Even if weeks are present in the period, they are not output.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_92'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Fractional seconds (milliseconds) will appear if required.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_93'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_94'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the formatter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_95'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_96'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static PeriodFormatter alternate() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_97'/>
+97
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_97'>1</a>
+<span>
+1. alternate : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (cAlternate == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_98'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            cAlternate = new PeriodFormatterBuilder()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_99'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendLiteral(&#34;P&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_100'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .printZeroAlways()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_101'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .minimumPrintedDigits(4)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_102'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendYears()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_103'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .minimumPrintedDigits(2)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_104'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendMonths()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_105'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendDays()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_106'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparatorIfFieldsAfter(&#34;T&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_107'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendHours()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_108'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendMinutes()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_109'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSecondsWithOptionalMillis()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_110'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .toFormatter();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_111'/>
+111
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_111'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_112'/>
+112
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_112'>1</a>
+<span>
+1. alternate : mutated return of Object value for org/joda/time/format/ISOPeriodFormat::alternate to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return cAlternate;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_113'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_114'/>
+114
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_114'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_115'/>
+115
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_115'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_116'/>
+116
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_116'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The alternate ISO format, Pyyyy-mm-ddThh:mm:ss, which excludes weeks.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_117'/>
+117
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_117'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_118'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Even if weeks are present in the period, they are not output.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_119'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Fractional seconds (milliseconds) will appear if required.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_120'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_121'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the formatter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_122'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_123'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static PeriodFormatter alternateExtended() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_124'/>
+124
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_124'>1</a>
+<span>
+1. alternateExtended : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (cAlternateExtended == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_125'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            cAlternateExtended = new PeriodFormatterBuilder()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_126'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendLiteral(&#34;P&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_127'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .printZeroAlways()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_128'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .minimumPrintedDigits(4)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_129'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendYears()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_130'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparator(&#34;-&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_131'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .minimumPrintedDigits(2)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_132'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendMonths()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_133'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparator(&#34;-&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_134'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendDays()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_135'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparatorIfFieldsAfter(&#34;T&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_136'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendHours()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_137'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparator(&#34;:&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_138'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendMinutes()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_139'/>
+139
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_139'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparator(&#34;:&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_140'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSecondsWithOptionalMillis()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_141'/>
+141
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_141'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .toFormatter();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_142'/>
+142
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_142'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_143'/>
+143
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_143'>1</a>
+<span>
+1. alternateExtended : mutated return of Object value for org/joda/time/format/ISOPeriodFormat::alternateExtended to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return cAlternateExtended;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_144'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_145'/>
+145
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_145'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_146'/>
+146
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_146'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_147'/>
+147
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_147'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The alternate ISO format, PyyyyWwwddThhmmss, which excludes months.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_148'/>
+148
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_148'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_149'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Even if months are present in the period, they are not output.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_150'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Fractional seconds (milliseconds) will appear if required.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_151'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_152'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the formatter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_153'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_154'/>
+154
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_154'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static PeriodFormatter alternateWithWeeks() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_155'/>
+155
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_155'>1</a>
+<span>
+1. alternateWithWeeks : negated conditional &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (cAlternateWithWeeks == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_156'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            cAlternateWithWeeks = new PeriodFormatterBuilder()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_157'/>
+157
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_157'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendLiteral(&#34;P&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_158'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .printZeroAlways()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_159'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .minimumPrintedDigits(4)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_160'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendYears()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_161'/>
+161
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_161'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .minimumPrintedDigits(2)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_162'/>
+162
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_162'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendPrefix(&#34;W&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_163'/>
+163
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_163'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendWeeks()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_164'/>
+164
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_164'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendDays()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_165'/>
+165
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_165'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparatorIfFieldsAfter(&#34;T&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_166'/>
+166
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_166'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendHours()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_167'/>
+167
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_167'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendMinutes()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_168'/>
+168
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_168'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSecondsWithOptionalMillis()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_169'/>
+169
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_169'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .toFormatter();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_170'/>
+170
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_170'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_171'/>
+171
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_171'>1</a>
+<span>
+1. alternateWithWeeks : mutated return of Object value for org/joda/time/format/ISOPeriodFormat::alternateWithWeeks to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return cAlternateWithWeeks;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_172'/>
+172
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_172'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_173'/>
+173
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_173'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_174'/>
+174
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_174'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_175'/>
+175
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_175'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * The alternate ISO format, Pyyyy-Www-ddThh:mm:ss, which excludes months.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_176'/>
+176
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_176'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * &#60;p&#62;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_177'/>
+177
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_177'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Even if months are present in the period, they are not output.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_178'/>
+178
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_178'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Fractional seconds (milliseconds) will appear if required.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_179'/>
+179
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_179'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_180'/>
+180
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_180'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * @return the formatter</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_181'/>
+181
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_181'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_182'/>
+182
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_182'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static PeriodFormatter alternateExtendedWithWeeks() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_183'/>
+183
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_183'>1</a>
+<span>
+1. alternateExtendedWithWeeks : negated conditional &rarr; SURVIVED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (cAlternateExtendedWihWeeks == null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_184'/>
+184
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_184'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            cAlternateExtendedWihWeeks = new PeriodFormatterBuilder()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_185'/>
+185
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_185'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendLiteral(&#34;P&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_186'/>
+186
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_186'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .printZeroAlways()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_187'/>
+187
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_187'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .minimumPrintedDigits(4)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_188'/>
+188
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_188'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendYears()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_189'/>
+189
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_189'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparator(&#34;-&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_190'/>
+190
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_190'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .minimumPrintedDigits(2)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_191'/>
+191
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_191'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendPrefix(&#34;W&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_192'/>
+192
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_192'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendWeeks()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_193'/>
+193
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_193'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparator(&#34;-&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_194'/>
+194
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_194'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendDays()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_195'/>
+195
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_195'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparatorIfFieldsAfter(&#34;T&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_196'/>
+196
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_196'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendHours()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_197'/>
+197
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_197'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparator(&#34;:&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_198'/>
+198
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_198'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendMinutes()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_199'/>
+199
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_199'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSeparator(&#34;:&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_200'/>
+200
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_200'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .appendSecondsWithOptionalMillis()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_201'/>
+201
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_201'></a>
+<span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                .toFormatter();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_202'/>
+202
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_202'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_203'/>
+203
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_203'>1</a>
+<span>
+1. alternateExtendedWithWeeks : mutated return of Object value for org/joda/time/format/ISOPeriodFormat::alternateExtendedWithWeeks to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED<br/>
+
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return cAlternateExtendedWihWeeks;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_204'/>
+204
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_204'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_205'/>
+205
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_205'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@71f13f7a_206'/>
+206
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_206'></a>
+<span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@71f13f7a_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_65'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>standard<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@71f13f7a_85'>85</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_85'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>standard<br/><b>Killed by : </b>org.joda.time.format.TestISOPeriodFormat.testFormatStandard_negative(org.joda.time.format.TestISOPeriodFormat)</span></span> mutated return of Object value for org/joda/time/format/ISOPeriodFormat::standard to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@71f13f7a_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_97'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>alternate<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@71f13f7a_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_112'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>alternate<br/><b>Killed by : </b>org.joda.time.format.TestISOPeriodFormat.testFormatAlternate(org.joda.time.format.TestISOPeriodFormat)</span></span> mutated return of Object value for org/joda/time/format/ISOPeriodFormat::alternate to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@71f13f7a_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_124'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>alternateExtended<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@71f13f7a_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_143'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>alternateExtended<br/><b>Killed by : </b>org.joda.time.format.TestISOPeriodFormat.testFormatAlternateExtended(org.joda.time.format.TestISOPeriodFormat)</span></span> mutated return of Object value for org/joda/time/format/ISOPeriodFormat::alternateExtended to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@71f13f7a_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_155'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>alternateWithWeeks<br/><b>Killed by : </b>org.joda.time.format.TestISOPeriodFormat.testFormatAlternateWithWeeks(org.joda.time.format.TestISOPeriodFormat)</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@71f13f7a_171'>171</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_171'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>alternateWithWeeks<br/><b>Killed by : </b>org.joda.time.format.TestISOPeriodFormat.testFormatAlternateWithWeeks(org.joda.time.format.TestISOPeriodFormat)</span></span> mutated return of Object value for org/joda/time/format/ISOPeriodFormat::alternateWithWeeks to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@71f13f7a_183'>183</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_183'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>alternateExtendedWithWeeks<br/><b>Killed by : </b>none</span></span> negated conditional &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@71f13f7a_203'>203</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@71f13f7a_203'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>alternateExtendedWithWeeks<br/><b>Killed by : </b>org.joda.time.format.TestISOPeriodFormat.testFormatAlternateExtendedWithWeeks(org.joda.time.format.TestISOPeriodFormat)</span></span> mutated return of Object value for org/joda/time/format/ISOPeriodFormat::alternateExtendedWithWeeks to ( if (x != null) null else throw new RuntimeException ) &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+<li class='mutator'>RETURN_VALS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>org.joda.time.convert.TestStringConverter.testSetIntoPeriod_Object8(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_Object_PeriodType1(org.joda.time.TestPeriod_Constructors) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_periodType_years(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoInterval_Object_Chronology1(org.joda.time.convert.TestStringConverter) (1 ms)</li><li>org.joda.time.TestBaseSingleFieldPeriod.testFactory_standardPeriodIn_RPeriod(org.joda.time.TestBaseSingleFieldPeriod) (1 ms)</li><li>org.joda.time.TestBaseSingleFieldPeriod.testEqualsHashCode(org.joda.time.TestBaseSingleFieldPeriod) (46 ms)</li><li>org.joda.time.TestInterval_Constructors.testParseWithOffset_offsetInString(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoPeriod_Object7(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.format.TestPeriodFormatter.testParseMutablePeriod_simple(org.joda.time.format.TestPeriodFormatter) (0 ms)</li><li>org.joda.time.TestDays.testToStandardWeeks(org.joda.time.TestDays) (1 ms)</li><li>org.joda.time.TestPeriod_Constructors.testConstructor_Object1(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.format.TestPeriodFormatter.testParsePeriod_parseType(org.joda.time.format.TestPeriodFormatter) (0 ms)</li><li>org.joda.time.TestInterval_Basics.testToString_reparse(org.joda.time.TestInterval_Basics) (1 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandardFail1(org.joda.time.format.TestISOPeriodFormatParsing) (0 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoInterval_Object_Chronology4(org.joda.time.convert.TestStringConverter) (1 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard3(org.joda.time.format.TestISOPeriodFormatParsing) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard8(org.joda.time.format.TestISOPeriodFormatParsing) (1 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoPeriod_Object1(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testParse_noFormatter(org.joda.time.TestMutableInterval_Constructors) (6 ms)</li><li>org.joda.time.format.TestPeriodFormatter.testWithGetParseTypeMethods(org.joda.time.format.TestPeriodFormatter) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testNormalizedStandard_periodType_yearMonth3(org.joda.time.TestPeriod_Basics) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testParse_noFormatter(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard1(org.joda.time.format.TestISOPeriodFormatParsing) (1 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_Object_PeriodType1(org.joda.time.TestMutablePeriod_Constructors) (0 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoPeriod_Object6(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testParseWithOffset_noOffsetInString(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.format.TestPeriodFormatter.testPrint_bufferMethods(org.joda.time.format.TestPeriodFormatter) (0 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoInterval_Object_Chronology2(org.joda.time.convert.TestStringConverter) (1 ms)</li><li>org.joda.time.TestDays.testToStandardMinutes(org.joda.time.TestDays) (1 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard11(org.joda.time.format.TestISOPeriodFormatParsing) (0 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoInterval_Object_Chronology7(org.joda.time.convert.TestStringConverter) (1 ms)</li><li>org.joda.time.format.TestPeriodFormatter.testParsePeriod_simple(org.joda.time.format.TestPeriodFormatter) (1 ms)</li><li>org.joda.time.TestInterval_Constructors.testParse_offsetInString(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoPeriod_Object3(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.TestPeriod_Basics.testToString_nullPeriodFormatter(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.TestDays.testFactory_standardDaysIn_RPeriod(org.joda.time.TestDays) (0 ms)</li><li>org.joda.time.format.TestPeriodFormatParsing.testParseNegativeMillis2(org.joda.time.format.TestPeriodFormatParsing) (0 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoIntervalEx_Object_Chronology5(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.TestPeriod_Constructors.testParse_noFormatter(org.joda.time.TestPeriod_Constructors) (0 ms)</li><li>org.joda.time.TestDateTimeZoneCutover.testPeriod(org.joda.time.TestDateTimeZoneCutover) (2 ms)</li><li>org.joda.time.TestDays.testToStandardSeconds(org.joda.time.TestDays) (1 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoPeriod_Object4(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testParseWithOffset_invalid(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoInterval_Object_Chronology6(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandardFail2(org.joda.time.format.TestISOPeriodFormatParsing) (0 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoInterval_Object_Chronology5(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testConstructor_Object1(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard7(org.joda.time.format.TestISOPeriodFormatParsing) (1 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoPeriod_Object2(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.TestMinutes.testFactory_standardMinutesIn_RPeriod(org.joda.time.TestMinutes) (1 ms)</li><li>org.joda.time.format.TestPeriodFormatter.testPrint_simple(org.joda.time.format.TestPeriodFormatter) (1 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard5(org.joda.time.format.TestISOPeriodFormatParsing) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Basics.testToString(org.joda.time.TestMutablePeriod_Basics) (1 ms)</li><li>org.joda.time.TestSeconds.testFactory_standardSecondsIn_RPeriod(org.joda.time.TestSeconds) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandardFail3(org.joda.time.format.TestISOPeriodFormatParsing) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormat.testFormatAlternate(org.joda.time.format.TestISOPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestPeriodFormatter.testWithGetLocaleMethods(org.joda.time.format.TestPeriodFormatter) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandardFail4(org.joda.time.format.TestISOPeriodFormatParsing) (0 ms)</li><li>org.joda.time.format.TestPeriodFormatter.testPrinterParserMethods(org.joda.time.format.TestPeriodFormatter) (1 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard6(org.joda.time.format.TestISOPeriodFormatParsing) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormat.testFormatAlternateExtendedWithWeeks(org.joda.time.format.TestISOPeriodFormat) (1 ms)</li><li>org.joda.time.TestHours.testFactory_standardHoursIn_RPeriod(org.joda.time.TestHours) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard10(org.joda.time.format.TestISOPeriodFormatParsing) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard9(org.joda.time.format.TestISOPeriodFormatParsing) (1 ms)</li><li>org.joda.time.TestStringConvert.testMutablePeriod(org.joda.time.TestStringConvert) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testToString(org.joda.time.TestPeriod_Basics) (0 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoPeriod_Object5(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoInterval_Object_Chronology8(org.joda.time.convert.TestStringConverter) (1 ms)</li><li>org.joda.time.format.TestPeriodFormatter.testParseInto_simple(org.joda.time.format.TestPeriodFormatter) (1 ms)</li><li>org.joda.time.format.TestPeriodFormatter.testPrint_writerMethods(org.joda.time.format.TestPeriodFormatter) (1 ms)</li><li>org.joda.time.convert.TestStringConverter.testSetIntoInterval_Object_Chronology3(org.joda.time.convert.TestStringConverter) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard4(org.joda.time.format.TestISOPeriodFormatParsing) (0 ms)</li><li>org.joda.time.TestInterval_Constructors.testParse_noOffsetInString(org.joda.time.TestInterval_Constructors) (1 ms)</li><li>org.joda.time.format.TestISOPeriodFormat.testFormatAlternateExtended(org.joda.time.format.TestISOPeriodFormat) (1 ms)</li><li>org.joda.time.format.TestISOPeriodFormat.testFormatStandard_negative(org.joda.time.format.TestISOPeriodFormat) (1 ms)</li><li>org.joda.time.TestMonths.testAddToLocalDate(org.joda.time.TestMonths) (2 ms)</li><li>org.joda.time.TestWeeks.testFactory_standardWeeksIn_RPeriod(org.joda.time.TestWeeks) (1 ms)</li><li>org.joda.time.TestPeriod_Basics.testMinus(org.joda.time.TestPeriod_Basics) (4 ms)</li><li>org.joda.time.format.TestISOPeriodFormatParsing.testParseStandard2(org.joda.time.format.TestISOPeriodFormatParsing) (1 ms)</li><li>org.joda.time.format.TestISOPeriodFormat.testFormatStandard(org.joda.time.format.TestISOPeriodFormat) (0 ms)</li><li>org.joda.time.TestStringConvert.testPeriod(org.joda.time.TestStringConvert) (0 ms)</li><li>org.joda.time.TestMutablePeriod_Constructors.testConstructor_Object1(org.joda.time.TestMutablePeriod_Constructors) (1 ms)</li><li>org.joda.time.format.TestPeriodFormatterBuilder.testBug2495455(org.joda.time.format.TestPeriodFormatterBuilder) (1 ms)</li><li>org.joda.time.format.TestPeriodFormatParsing.testParseNegativeMillis1(org.joda.time.format.TestPeriodFormatParsing) (0 ms)</li><li>org.joda.time.TestMutableInterval_Constructors.testConstructor_Object1(org.joda.time.TestMutableInterval_Constructors) (0 ms)</li><li>org.joda.time.format.TestISOPeriodFormat.testFormatAlternateWithWeeks(org.joda.time.format.TestISOPeriodFormat) (1 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.1.7
+
+</body>
+</html>
