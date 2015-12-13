@@ -11,4 +11,7 @@ mvn clean
 cd $BASEDIR/test-mutants/
 mvn clean
 
+cd $BASEDIR/spark-2.3/
+mvn clean
+
 rm -rf ~/.m2/

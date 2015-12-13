@@ -16,5 +16,5 @@ fi
 #cd $BASEDIR/pitest-pitest-parent-1.1.7/pitest/
 #mvn install -Dmaven.test.skip=true
 
-cd $BASEDIR/test-mutants/
+cd $BASEDIR/spark-2.3/
 mvn clean test org.pitest:pitest-maven:mutationCoverage
