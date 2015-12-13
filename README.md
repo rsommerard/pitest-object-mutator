@@ -25,6 +25,12 @@ le dossier .m2 de l'utilisateur.
 3. Les résultats de pitest se trouvent dans le dossier:
     `<project_name>/target/pit-reports/`
 
+# Projets
+
+* Gradle Jenkins Plugin
+* Joda Time
+* Spark Java
+
 # Liens
 
 - http://fr.slideshare.net/royvanrijn/kill-the-mutants-a-better-way-to-test-your-tests
